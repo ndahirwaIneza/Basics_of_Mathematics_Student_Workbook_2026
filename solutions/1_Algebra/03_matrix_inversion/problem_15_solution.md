@@ -64,11 +64,11 @@ $$
 
 3. Comparison:
    - Both methods produce the exact same solution vector $x = \begin{pmatrix} 13/5 \\ 9/5 \end{pmatrix}$.
-   - Operation count / steps:
-     - Method 1 requires 3 distinct conceptual stages: calculating the determinant, constructing the $2 \times 2$ inverse matrix, and computing a matrix-vector dot product (involving 4 multiplications and 2 additions).
-     - Method 2 requires only 1 row swap, 1 row elimination step, and 1 back-substitution step (involving 2 multiplications and 1 subtraction).
+   - Essential stages:
+     - Method 1 computes the determinant, constructs the inverse, and then performs a matrix-vector multiplication.
+     - Method 2 performs one row swap, one elimination step, and back-substitution. A complete scalar-operation comparison would also count the augmented-entry update, back-substitution, and divisions, so the stage comparison is more meaningful here than the incomplete counts of individual arithmetic operations.
    - Which was simpler:
-     For this single system, Gaussian elimination was simpler and faster because it directly solves for the unknowns without constructing the four entries of the inverse matrix. However, if multiple systems $Ax = b_i$ needed to be solved for various right-hand sides with the same matrix $A$, Method 1 would be superior since $A^{-1}$ would only need to be computed once.
+     For this single system, Gaussian elimination was simpler because it directly solves for the unknowns without constructing the four entries of the inverse matrix. For multiple right-hand sides with the same matrix $A$, an existing inverse can be reused, but an LU factorization or elimination factors can also be reused, so inversion is not automatically superior.
 
 ---
 
@@ -98,11 +98,10 @@ x_1 = \frac{\begin{vmatrix} 7 & 1 \\ 8 & 3 \end{vmatrix}}{5} = \frac{21 - 8}{5} 
 $$
 Matches both previous methods.
 
-**Pass 3 — Consistency check:** The coefficient matrix $A$ is symmetric positive definite ($2 > 0$ and $\det A = 5 > 0$), guaranteeing a unique, well-conditioned solution.
+**Pass 3 — Consistency check:** The coefficient matrix $A$ is symmetric positive definite because its leading principal minors satisfy $2>0$ and $\det A=5>0$. This guarantees a unique solution; positive definiteness alone does not guarantee that the system is well-conditioned.
 
 ---
 
 ## Exam tip
 
-For a single system of equations, Gaussian elimination is faster than inverting the matrix; only invert $A$ if you must solve $Ax = b$ for several different vectors $b$.
-
+For a single system of equations, Gaussian elimination avoids the extra work of explicitly forming the inverse. For several right-hand sides, reuse an existing inverse or reuse LU/elimination factors; inversion is not automatically the best choice.

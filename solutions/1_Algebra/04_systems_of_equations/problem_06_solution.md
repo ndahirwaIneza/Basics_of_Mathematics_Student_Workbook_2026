@@ -101,11 +101,14 @@ $$
 
 **Pass 2 — Numerical check:** At $a = 2$: choose $x = 1, y = 1$: $1 + 1 = 2$ and $2(1) + 2(1) = 4$, consistent. Choose $x = 0, y = 2$: $0 + 2 = 2$ and $2(0) + 2(2) = 4$, consistent.
 
-**Pass 3 — Consistency check:** For any $a$, the lines $x + y = 2$ and $a(x + y) = 4$ are parallel because both have normal vector $(1, 1)$. When $a = 2$, they are coincident; when $a \neq 2$, they are distinct parallel lines. Distinct parallel lines never intersect, and coincident lines intersect everywhere.
+**Pass 3 — Consistency check:** When $a\neq 0$, the second equation can be written as
+$$
+x+y=\frac{4}{a}.
+$$
+Thus the two equations represent parallel lines: when $a=2$, they are coincident, and when $a\neq 0,2$, they are distinct parallel lines. When $a=0$, the second equation is instead $0=4$, so it represents the empty set rather than a line. These cases agree with the algebraic classification.
 
 ---
 
 ## Exam tip
 
 Do not assume that all three theoretical outcomes must occur; check whether $\det(A)$ is identically zero for all values of the parameter first.
-

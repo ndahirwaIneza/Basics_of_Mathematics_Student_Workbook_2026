@@ -110,11 +110,16 @@ p(x) &= 1 \cdot \frac{(x-1)(x-2)}{(0-1)(0-2)} + 3 \cdot \frac{(x-0)(x-2)}{(1-0)(
 $$
 Lagrange interpolation confirms the exact same polynomial.
 
-**Pass 2 — Numerical check:** Vandermonde determinant for nodes $x = (0, 1, 2)$:
+**Pass 2 — Numerical check:** Vandermonde determinant for nodes $x=(0,1,2)$: the displayed coefficient matrix uses columns $(x^2,x,1)$, so it is the conventional Vandermonde matrix with columns $(1,x,x^2)$ after reversing the column order. The conventional determinant is
 $$
-\det(V) = (x_2 - x_1)(x_3 - x_1)(x_3 - x_2) = (1 - 0)(2 - 0)(2 - 1) = 1 \cdot 2 \cdot 1 = 2 \neq 0
+\det(V_{\mathrm{conv}})=(x_2-x_1)(x_3-x_1)(x_3-x_2)
+=(1-0)(2-0)(2-1)=2.
 $$
-Because the determinant is non-zero, the solution is unique.
+Reversing the three columns to obtain the displayed matrix changes the determinant by $(-1)^3=-1$, so
+$$
+\det\begin{pmatrix}0&0&1\\1&1&1\\4&2&1\end{pmatrix}=-2\neq 0.
+$$
+Either convention proves that the solution is unique.
 
 **Pass 3 — Consistency check:** Since $p(x)$ is an even function ($b = 0$), $p(-1) = p(1) = 3$ and $p(-2) = p(2) = 9$, which is consistent with the symmetry about the $y$-axis.
 
@@ -123,4 +128,3 @@ Because the determinant is non-zero, the solution is unique.
 ## Exam tip
 
 Evaluating the polynomial at $x = 0$ directly reveals the constant term $c$, simplifying the remaining problem to a $2 \times 2$ system in $a$ and $b$.
-

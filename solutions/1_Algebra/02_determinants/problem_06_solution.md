@@ -29,7 +29,7 @@ $$
 
 3. Relationship between non-invertibility and $\det A(t) = 0$:
    A matrix $A$ represents a linear transformation $T(\mathbf{x}) = A\mathbf{x}$. The determinant measures the oriented area scaling factor of this transformation.
-   - When $\det A(t) = 0$, the transformation collapses 2D space onto a 1D line (or the origin), mapping non-zero vectors to zero (nontrivial kernel).
+   - When $\det A(t) = 0$, the transformation collapses 2D space onto a 1D line (or the origin), mapping at least one non-zero vector to zero (a nontrivial kernel).
    - Because dimension is lost, the mapping is not injective and information cannot be recovered; therefore, no two-sided inverse matrix $A^{-1}$ can exist.
    - For $t = \sqrt{2}$, the matrix is $\begin{pmatrix} \sqrt{2} & 1 \\ 2 & \sqrt{2} \end{pmatrix}$, where Row 2 is $\sqrt{2} \times \text{Row 1}$, showing direct linear dependence.
    - For $t = -\sqrt{2}$, Row 2 is $-\sqrt{2} \times \text{Row 1}$, which is also linearly dependent.
@@ -50,11 +50,14 @@ $$
 
 **Pass 2 — Numerical check:** Plug in $t = 2$: $\det A(2) = 2^2 - 2 = 2 \neq 0$, which is invertible. Plug in $t = \sqrt{2}$: $\det A(\sqrt{2}) = (\sqrt{2})^2 - 2 = 2 - 2 = 0$, confirming singularity.
 
-**Pass 3 — Consistency check:** Since $A(t)$ is symmetric, its eigenvalues are roots of $\det(A(t) - \lambda I) = 0 \implies (\lambda - t)^2 - 2 = 0 \implies \lambda = t \pm \sqrt{2}$. Zero is an eigenvalue if and only if $t \pm \sqrt{2} = 0 \implies t = \mp\sqrt{2}$.
+**Pass 3 — Consistency check:** The characteristic polynomial is
+$$
+\det(A(t)-\lambda I)=(t-\lambda)^2-2=(\lambda-t)^2-2.
+$$
+Thus the eigenvalues are $\lambda=t\pm\sqrt{2}$. Zero is an eigenvalue if and only if $t\pm\sqrt{2}=0$, which gives $t=\mp\sqrt{2}$, agreeing with the determinant calculation.
 
 ---
 
 ## Exam tip
 
 To find where a parameterized matrix fails to be invertible, compute its determinant as a polynomial in the parameter and solve $\det A(t) = 0$.
-

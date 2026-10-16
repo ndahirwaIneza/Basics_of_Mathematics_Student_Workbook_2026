@@ -108,10 +108,10 @@ $$
 
 ## Verification
 
-**Pass 1 — Algebraic check:** Solve via Cramer's rule:
-$\det(A) = 1(1 - (-2)) - 1(-2 - 1) + 1(4 - (-1)) = 3 + 3 + 5$ ... let's check:
-$\det(A) = 1(1 - (-2)) - 1(-2 - 1) + 1(4 - (-1))$ wait, row 1 is $(1, 1, 1)$, row 2 is $(2, -1, 1)$, row 3 is $(1, 2, -1)$.
-$\det(A) = 1(1 - 2) - 1(-2 - 1) + 1(4 - (-1)) = -1 + 3 + 5 = 7 \neq 0$.
+**Pass 1 — Algebraic check:** Solve via Cramer's rule. Expanding along the first row gives
+$$
+\det(A)=1(1-2)-1(-2-1)+1(4+1)=-1+3+5=7\neq 0.
+$$
 Product of pivots after one swap: $(-1) \cdot [1 \cdot 1 \cdot (-7)] = 7$. Matches.
 
 **Pass 2 — Numerical check:**
@@ -126,4 +126,3 @@ $\det(A_z) = \begin{vmatrix} 1 & 1 & 6 \\ 2 & -1 & 3 \\ 1 & 2 & 2 \end{vmatrix} 
 ## Exam tip
 
 Swapping rows to obtain a pivot of $+1$ (as done in $R_2 \leftrightarrow R_3$) eliminates fractions and minimizes arithmetic errors during elimination.
-

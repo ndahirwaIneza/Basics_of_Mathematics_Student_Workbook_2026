@@ -14,9 +14,9 @@ For case 1, carry out the chosen method completely. For cases 2 and 3, describe 
 ## Relevant theorem / definition
 
 The computational efficiency of solving $Ax = b$ depends on structure and repetition:
-1. Triangular systems require only back-substitution ($O(n^2)$), bypassing elimination entirely.
-2. Multiple right-hand sides ($k$ systems) with precomputed $A^{-1}$ require only $k$ matrix-vector multiplications ($k \cdot O(n^2)$), completely reusing $A^{-1}$.
-3. Single general $n \times n$ system without precomputed $A^{-1}$ is solved via Gaussian elimination with back-substitution ($\frac{2}{3}n^3$ operations), which is three times faster than computing $A^{-1}$ ($\sim 2n^3$ operations).
+1. Triangular systems require only back-substitution, bypassing elimination entirely.
+2. Multiple right-hand sides with precomputed $A^{-1}$ require only matrix-vector multiplications, reusing $A^{-1}$.
+3. A single general system without a precomputed inverse is naturally solved by Gaussian elimination with back-substitution; explicitly constructing $A^{-1}$ would compute information that is not needed.
 
 ---
 
@@ -46,7 +46,7 @@ $$\begin{cases} 2x - y = 3 \\ 4y = 8 \end{cases}$$
 - Justification: Because $A^{-1}$ is already computed, each solution vector is obtained by multiplying $A^{-1}$ by $\mathbf{b}_i$.
 - Plan and reusability:
   - The known matrix $A^{-1}$ is reused three times without recomputation.
-  - Each solve requires only one matrix-vector dot product ($n^2$ operations per system).
+  - Each solve requires one matrix-vector multiplication: $n^2$ scalar multiplications and $n(n-1)$ scalar additions for a dense $n\times n$ matrix.
   - Unnecessary work: Running Gaussian elimination three times on $[A \mid b_1]$, $[A \mid b_2]$, and $[A \mid b_3]$ would redundantly perform identical row operations on $A$ three times, wasting computation.
 
 ---
@@ -57,7 +57,8 @@ $$\begin{cases} 2x - y = 3 \\ 4y = 8 \end{cases}$$
 - Justification: We only need to solve for a single vector $\mathbf{b}$, and $A^{-1}$ is not given.
 - Plan and computational economy:
   - Plan: Transform $[A \mid \mathbf{b}]$ to upper triangular echelon form $[U \mid \mathbf{c}]$ using row operations, then solve for unknowns via back-substitution.
-  - Unnecessary work: Inverting $A$ by solving $[A \mid I_3]$ requires finding all 9 entries of $A^{-1}$ (equivalent to solving 3 systems with unit basis vectors $\mathbf{e}_1, \mathbf{e}_2, \mathbf{e}_3$). Computing $A^{-1}$ takes $\sim 2n^3$ operations, whereas Gaussian elimination on $[A \mid \mathbf{b}]$ takes only $\sim \frac{2}{3}n^3$ operations. Since there is only one right-hand side, constructing $A^{-1}$ is completely redundant.
+  - Unnecessary work: Inverting $A$ by solving $[A \mid I_3]$ computes all entries of $A^{-1}$ even though only one solution vector is needed. Since there is only one right-hand side, constructing $A^{-1}$ is unnecessary.
+  - For repeated solves with an unknown matrix, an LU factorization can also be computed once and reused, so explicitly forming an inverse is not the only reusable approach.
 
 ---
 
@@ -72,7 +73,7 @@ $$
 $$
 
 $$
-\text{Case 3: Gaussian elimination on } [A \mid \mathbf{b}] \implies \text{avoids unnecessary } O(n^3) \text{ inversion overhead}
+\text{Case 3: Gaussian elimination on } [A \mid \mathbf{b}] \implies \text{avoids constructing an unnecessary inverse}
 $$
 
 ---
@@ -81,16 +82,12 @@ $$
 
 **Pass 1 — Algebraic check:** Check Case 1 substitution: $2(5/2) - 2 = 5 - 2 = 3$, and $4(2) = 8$. Both equations hold.
 
-**Pass 2 — Numerical check:** For $n = 3$:
-- Operation count for Gaussian elimination: $\frac{2}{3}(27) + \frac{1}{2}(9) \approx 22$ operations.
-- Operation count for matrix inversion + multiplication: $2(27) + 2(9) = 72$ operations.
-Gaussian elimination is over 3 times faster for a single $3 \times 3$ system.
+**Pass 2 — Numerical check:** For $n=3$, a dense matrix-vector multiplication uses $9$ scalar multiplications and $6$ scalar additions. This confirms that each known-inverse solve is a direct reusable multiplication, while case 3 should avoid constructing the full inverse when only one right-hand side is required.
 
-**Pass 3 — Consistency check:** For Case 2, if $k$ systems are solved: inversion takes $2n^3 + k n^2$, while $k$ eliminations take $k(\frac{2}{3}n^3)$. For large $k$, matrix-vector multiplication is asymptotically superior.
+**Pass 3 — Consistency check:** For Case 2, the same known inverse is reused for all three right-hand sides. More generally, either a precomputed inverse or reusable LU/elimination factors can support repeated solves; the appropriate choice depends on the structure and numerical context.
 
 ---
 
 ## Exam tip
 
-Choose methods based on problem structure: triangular matrices $\to$ back-substitution; single system $\to$ Gaussian elimination; many systems with same $A \to$ inverse or LU decomposition.
-
+Choose methods based on problem structure: triangular matrices $\to$ back-substitution; a single general system $\to$ Gaussian elimination; many systems with the same $A \to$ reuse an inverse or LU decomposition.
