@@ -56,7 +56,7 @@ $$
 
 ---
 
-## Verification
+<!-- ## Verification
 
 **Pass 1 — Algebraic check:** Check $(A+B) + (A-B) = 2A$:
 $$
@@ -71,5 +71,5 @@ $$
 
 ## Exam tip
 
-Watch double negatives during entrywise subtraction, such as $2 - (-2) = 4$ and $6 - (-4) = 10$.
+Watch double negatives during entrywise subtraction, such as $2 - (-2) = 4$ and $6 - (-4) = 10$. -->
 
