@@ -68,10 +68,11 @@ def scan_local_completion(root_dir="."):
 
     for section in ALL_SECTIONS:
         sec_dir = os.path.join(solutions_dir, section.replace("/", os.sep))
+        max_exercises = 12 if section == "3_Calculus/05_applications" else 15
         completed = 0
         incomplete = 0
 
-        for i in range(1, 16):
+        for i in range(1, max_exercises + 1):
             name_v1 = f"problem_{i:02d}_solution.md"
             name_v2 = f"ex_{i:02d}.md"
             p1 = os.path.join(sec_dir, name_v1)
@@ -182,9 +183,10 @@ def main():
         total_all = total_comp + total_incomp
 
         for sec, comp, incomp in local_comp:
-            pct = int(comp / (comp + incomp) * 100) if (comp + incomp) else 0
+            total_sec = comp + incomp
+            pct = int(comp / total_sec * 100) if total_sec else 0
             bar = "█" * (pct // 5) + "░" * (20 - (pct // 5))
-            print(f"  {sec:<45} {comp:2d}/15 [{bar}] {pct:3d}%")
+            print(f"  {sec:<45} {comp:2d}/{total_sec:2d} [{bar}] {pct:3d}%")
         print("-" * 70)
         pct_total = int(total_comp / total_all * 100) if total_all else 0
         print(f"  {'Total Completed':<45} {total_comp:2d}/{total_all} ({pct_total}%)")
