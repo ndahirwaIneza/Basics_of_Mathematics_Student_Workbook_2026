@@ -35,7 +35,7 @@ A square matrix $A$ such that $A^2 = I$ is called an involution (or an involutor
    $$
 
 2. Example of a $2 \times 2$ involutory matrix different from $I$ and $-I$:
-   Some reflections are involutions, but not every involution is a Euclidean reflection. Applying any involution twice returns every vector to its starting value. Consider the reflection matrix across the line $y = x$ (which swaps the coordinate axes):
+   Reflection matrices are examples of involutions, but not every matrix satisfying $A^2 = I$ is a Euclidean reflection (for instance, $-I$ in the plane is a $180^\circ$ rotation). Applying any involution twice returns every vector to its starting value. Our chosen coordinate-swap matrix across the line $y = x$ is specifically a reflection:
    $$
    A = \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}
    $$

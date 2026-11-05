@@ -115,7 +115,7 @@ $$
 \det(V_{\mathrm{conv}})=(x_2-x_1)(x_3-x_1)(x_3-x_2)
 =(1-0)(2-0)(2-1)=2.
 $$
-Reversing the three columns to obtain the displayed matrix changes the determinant by $(-1)^3=-1$, so
+Reversing the order of the three columns (which is a single transposition swapping columns 1 and 3) multiplies the determinant by $(-1)^1 = -1$, so
 $$
 \det\begin{pmatrix}0&0&1\\1&1&1\\4&2&1\end{pmatrix}=-2\neq 0.
 $$

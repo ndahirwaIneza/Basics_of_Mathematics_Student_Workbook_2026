@@ -68,12 +68,11 @@ $$
 $$
 Algebraically confirms the determinant area formula.
 
-**Pass 2 — Numerical check:** Area by coordinate geometry (box formula): enclose the parallelogram in a rectangle of size $4 \times 5$: Area of enclosing box = $4 \times 5 = 20$.
-Subtract corner triangles and excess rectangles: two triangles of base 3, height 1 (total area $2 \times \frac{3 \cdot 1}{2} = 3$), two triangles of base 1, height 4 (total area $2 \times \frac{1 \cdot 4}{2} = 4$), and two corner rectangles, each of area $1 \times 1=1$. The total is
+**Pass 2 — Numerical check:** Area by coordinate geometry (box formula): enclose the parallelogram in a rectangle $[0, 4] \times [0, 5]$ of size $4 \times 5$ (Area = $20$). Subtract the four outer right triangles and the two corner rectangles: the four triangles have total area $2 \times \frac{3 \cdot 1}{2} + 2 \times \frac{1 \cdot 4}{2} = 3 + 4 = 7$, and the two corner rectangles in $[0,1] \times [4,5]$ and $[3,4] \times [0,1]$ each have area $1 \times 1 = 1$ (total area $2$). The subtraction gives:
 $$
-20-3-4-2=11,
+20 - 7 - 2 = 11,
 $$
-which matches the determinant calculation.
+which matches the determinant area calculation exactly.
 
 **Pass 3 — Consistency check:** Since $u$ and $v$ are not scalar multiples of each other, they span a non-degenerate 2D parallelogram, guaranteeing positive non-zero area.
 

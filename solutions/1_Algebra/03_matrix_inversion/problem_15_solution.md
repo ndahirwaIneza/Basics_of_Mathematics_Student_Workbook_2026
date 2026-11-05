@@ -98,7 +98,7 @@ x_1 = \frac{\begin{vmatrix} 7 & 1 \\ 8 & 3 \end{vmatrix}}{5} = \frac{21 - 8}{5} 
 $$
 Matches both previous methods.
 
-**Pass 3 — Consistency check:** The coefficient matrix $A$ is symmetric positive definite because its leading principal minors satisfy $2>0$ and $\det A=5>0$. This guarantees a unique solution; positive definiteness alone does not guarantee that the system is well-conditioned.
+**Pass 3 — Consistency check:** Since $\det A = 5 \neq 0$, the matrix $A$ is non-singular, which rigorously guarantees that the solution $x$ exists and is unique. While $A$ is also symmetric positive definite ($a_{11}=2>0, \det A=5>0$), non-singularity directly establishes the uniqueness conclusion.
 
 ---
 
