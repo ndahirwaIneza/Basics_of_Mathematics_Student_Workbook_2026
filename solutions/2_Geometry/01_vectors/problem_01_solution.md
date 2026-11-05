@@ -61,7 +61,7 @@ $$
 
 ---
 
-## Verification
+<!-- ## Verification
 
 **Pass 1 — Algebraic check:** By group axioms of vector addition in $\mathbb{R}^3$, $(u+v)-v = u + (v - v) = u + \mathbf{0} = u$. Also, $(u+v) + (u-v) = 2u$: $(1,3,5) + (3,-5,1) = (4,-2,6) = 2(2,-1,3) = 2u$.
 
@@ -74,4 +74,4 @@ $$
 ## Exam tip
 
 Distribute negative signs carefully across all vector components during subtraction, especially when subtracting negative numbers such as $2 - (-1) = 3$ and $6 - (-2) = 8$.
-
+ -->

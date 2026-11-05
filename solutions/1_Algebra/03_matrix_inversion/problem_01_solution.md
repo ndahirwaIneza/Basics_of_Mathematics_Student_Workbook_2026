@@ -42,7 +42,7 @@ $$
 
 ---
 
-## Verification
+<!-- ## Verification
 
 **Pass 1 — Algebraic check:** Compute determinants: $\det(A) = 2(1) - 1(1) = 1$. By the inverse determinant rule, $\det(A^{-1}) = \frac{1}{\det A} = 1$. Computing $\det(B) = 1(2) - (-1)(-1) = 2 - 1 = 1$. The identity $\det(A)\det(B) = 1 \cdot 1 = 1 = \det(I)$ is verified.
 
@@ -54,5 +54,5 @@ $$
 
 ## Exam tip
 
-To verify whether a proposed matrix is the inverse, simply multiply it with the original matrix; if the product is the identity matrix $I$, it is the inverse.
+To verify whether a proposed matrix is the inverse, simply multiply it with the original matrix; if the product is the identity matrix $I$, it is the inverse. -->
 

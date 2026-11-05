@@ -55,7 +55,7 @@ $$
 
 ---
 
-## Verification
+<!-- ## Verification
 
 **Pass 1 — Algebraic check:** Trace and determinant check: $\det(A^{-1}) = 2\left(\frac{3}{2}\right) - (-1)\left(-\frac{5}{2}\right) = 3 - \frac{5}{2} = \frac{1}{2} = \frac{1}{\det A}$.
 
@@ -71,4 +71,4 @@ $$
 ## Exam tip
 
 In the $2 \times 2$ formula, remember to swap the diagonal entries and change the signs of the off-diagonal entries before dividing by $\det(A)$.
-
+ -->

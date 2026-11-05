@@ -1,0 +1,487 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mathematics Workbook Status</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #111827;
+      --panel: #1f2937;
+      --muted: #9ca3af;
+      --text: #f3f4f6;
+      --accent: #60a5fa;
+      --good: #34d399;
+      --warn: #fbbf24;
+      --bad: #f87171;
+      font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      margin: 0;
+      padding: 2rem;
+    }
+
+    main {
+      margin: 0 auto;
+      max-width: 1050px;
+    }
+
+    header {
+      align-items: center;
+      display: flex;
+      gap: 1rem;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+    }
+
+    h1, h2, p {
+      margin-top: 0;
+    }
+
+    h1 {
+      margin-bottom: .35rem;
+    }
+
+    a {
+      color: var(--accent);
+    }
+
+    button {
+      background: var(--accent);
+      border: 0;
+      border-radius: .5rem;
+      color: #0b1220;
+      cursor: pointer;
+      font-weight: 700;
+      padding: .7rem 1rem;
+    }
+
+    button:disabled {
+      cursor: wait;
+      opacity: .65;
+    }
+
+    .muted, .timestamp {
+      color: var(--muted);
+    }
+
+    .grid {
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      margin-bottom: 1rem;
+    }
+
+    .card, .issue {
+      background: var(--panel);
+      border: 1px solid #374151;
+      border-radius: .7rem;
+      padding: 1rem;
+    }
+
+    .metric {
+      font-size: 2rem;
+      font-weight: 700;
+    }
+
+    .good { color: var(--good); }
+    .warn { color: var(--warn); }
+    .bad { color: var(--bad); }
+
+    .section {
+      margin-top: 1.5rem;
+    }
+
+    .issue {
+      margin-bottom: .75rem;
+    }
+
+    .issue-title {
+      font-weight: 700;
+      margin-bottom: .4rem;
+    }
+
+    .issue-meta {
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    .issue-body {
+      color: #d1d5db;
+      line-height: 1.45;
+      margin: .65rem 0 0;
+      white-space: pre-wrap;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    th, td {
+      border-bottom: 1px solid #374151;
+      padding: .65rem;
+      text-align: left;
+    }
+
+    th {
+      color: #d1d5db;
+    }
+
+    .status-badge {
+      border-radius: 999px;
+      display: inline-block;
+      font-size: .85rem;
+      font-weight: 700;
+      padding: .2rem .55rem;
+    }
+
+    .status-complete {
+      background: #064e3b;
+      color: #a7f3d0;
+    }
+
+    .status-empty {
+      background: #78350f;
+      color: #fde68a;
+    }
+
+    .status-issue {
+      background: #7f1d1d;
+      color: #fecaca;
+    }
+
+    .notice {
+      border-left: 4px solid var(--warn);
+      padding-left: .8rem;
+    }
+
+    code {
+      background: #111827;
+      border-radius: .25rem;
+      padding: .1rem .3rem;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <div>
+        <h1>Mathematics Workbook Status</h1>
+        <p class="muted">
+          <a id="repo-link" href="https://github.com/ndahirwaIneza/Basics_of_Mathematics_Student_Workbook_2026" target="_blank" rel="noreferrer">GitHub repository</a>
+        </p>
+      </div>
+      <button id="refresh" type="button">Refresh GitHub status</button>
+    </header>
+
+    <p id="status" class="timestamp">Not checked yet.</p>
+
+    <section class="grid" aria-label="Repository metrics">
+      <div class="card">
+        <div class="muted">Open issues</div>
+        <div id="issue-count" class="metric">—</div>
+      </div>
+      <div class="card">
+        <div class="muted">Open pull requests</div>
+        <div id="pr-count" class="metric">—</div>
+      </div>
+      <div class="card">
+        <div class="muted">Recent workflow runs</div>
+        <div id="run-count" class="metric">—</div>
+      </div>
+      <div class="card">
+        <div class="muted">Latest pushed commit</div>
+        <div id="latest-commit" class="metric">—</div>
+      </div>
+      <div class="card">
+        <div class="muted">Exercises completed</div>
+        <div id="completion-count" class="metric">—</div>
+      </div>
+      <div class="card">
+        <div class="muted">Exercises with issues</div>
+        <div id="exercise-issue-count" class="metric">—</div>
+      </div>
+    </section>
+
+    <section class="card notice">
+      <h2>Local worktree snapshot</h2>
+      <p>
+        Last checked locally: <strong>main is synchronized with origin/main</strong>,
+        but the worktree contains uncommitted workbook changes. Review them in VS Code
+        Source Control before committing.
+      </p>
+      <p class="muted">
+        A browser page cannot read your local Git worktree for security reasons.
+        The Refresh button checks GitHub live; it does not commit or push files.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>Exercise completion</h2>
+      <p class="muted">
+        This snapshot treats a solution as completed when its solution Markdown file exists
+        and is not empty. Refreshing GitHub status does not change this local snapshot.
+      </p>
+      <div class="card">
+        <table>
+          <thead>
+            <tr>
+              <th>Section</th>
+              <th>Completed</th>
+              <th>Empty or missing</th>
+              <th>Issues</th>
+              <th>Progress</th>
+            </tr>
+          </thead>
+          <tbody id="completion-table"></tbody>
+        </table>
+      </div>
+      <div id="exercise-details" class="section"></div>
+    </section>
+
+    <section class="section">
+      <h2>Open issues</h2>
+      <div id="issues"><p class="muted">Press Refresh GitHub status.</p></div>
+    </section>
+
+    <section class="section">
+      <h2>Recent workflow runs</h2>
+      <div id="runs"><p class="muted">Press Refresh GitHub status.</p></div>
+    </section>
+  </main>
+
+  <script>
+    const owner = "ndahirwaIneza";
+    const repo = "Basics_of_Mathematics_Student_Workbook_2026";
+    const apiBase = `https://api.github.com/repos/${owner}/${repo}`;
+    const elements = {
+      refresh: document.getElementById("refresh"),
+      status: document.getElementById("status"),
+      issueCount: document.getElementById("issue-count"),
+      prCount: document.getElementById("pr-count"),
+      runCount: document.getElementById("run-count"),
+      latestCommit: document.getElementById("latest-commit"),
+      issues: document.getElementById("issues"),
+      runs: document.getElementById("runs"),
+      completionCount: document.getElementById("completion-count"),
+      exerciseIssueCount: document.getElementById("exercise-issue-count"),
+      completionTable: document.getElementById("completion-table"),
+      exerciseDetails: document.getElementById("exercise-details")
+    };
+
+    const completionSnapshot = {
+      checkedAt: "2026-11-05T04:20:14+01:00",
+      sections: [
+        ["1_Algebra/01_matrices_and_operations", 15, 0],
+        ["1_Algebra/02_determinants", 15, 0],
+        ["1_Algebra/03_matrix_inversion", 15, 0],
+        ["1_Algebra/04_systems_of_equations", 15, 0],
+        ["2_Geometry/01_vectors", 15, 0],
+        ["2_Geometry/02_lines_and_planes", 15, 0],
+        ["2_Geometry/03_second_degree_curves_and_surfaces", 0, 15],
+        ["3_Calculus/01_limits", 0, 15],
+        ["3_Calculus/02_derivatives", 0, 15],
+        ["3_Calculus/03_function_analysis", 0, 15],
+        ["3_Calculus/04_integrals", 0, 15],
+        ["3_Calculus/05_applications", 0, 15]
+      ]
+    };
+
+    function getExerciseIssues(issues) {
+      const exerciseIssues = new Map();
+      for (const issue of issues) {
+        const titleMatch = issue.title.match(/^Review\s+—\s+(.+)$/);
+        if (!titleMatch || !issue.body) {
+          continue;
+        }
+        const section = titleMatch[1];
+        const exercises = [...issue.body.matchAll(
+          /### Exercise (\d+) — Needs revision/g
+        )].map(match => Number(match[1]));
+        if (exercises.length) {
+          exerciseIssues.set(section, { issue, exercises });
+        }
+      }
+      return exerciseIssues;
+    }
+
+    function renderCompletion(issues = []) {
+      const exerciseIssues = getExerciseIssues(issues);
+      const completed = completionSnapshot.sections.reduce((sum, section) => sum + section[1], 0);
+      const total = completionSnapshot.sections.reduce((sum, section) => sum + section[1] + section[2], 0);
+      const issueCount = [...exerciseIssues.values()]
+        .reduce((sum, entry) => sum + entry.exercises.length, 0);
+      elements.completionCount.textContent = `${completed}/${total}`;
+      elements.completionCount.className = `metric ${completed === total ? "good" : "warn"}`;
+      elements.exerciseIssueCount.textContent = issueCount;
+      elements.exerciseIssueCount.className = `metric ${issueCount ? "warn" : "good"}`;
+      elements.completionTable.replaceChildren();
+      elements.exerciseDetails.replaceChildren();
+
+      for (const [section, done, incomplete] of completionSnapshot.sections) {
+        const issueEntry = exerciseIssues.get(section);
+        const sectionIssueCount = issueEntry ? issueEntry.exercises.length : 0;
+        const row = document.createElement("tr");
+        const progress = total ? Math.round((done / (done + incomplete)) * 100) : 0;
+        row.innerHTML = `
+          <td><code>${section}</code></td>
+          <td class="good">${done}</td>
+          <td class="${incomplete ? "warn" : "good"}">${incomplete}</td>
+          <td class="${sectionIssueCount ? "bad" : "good"}">${sectionIssueCount}</td>
+          <td>${progress}%</td>
+        `;
+        elements.completionTable.append(row);
+
+        const detail = document.createElement("div");
+        detail.className = "card";
+        const heading = document.createElement("h3");
+        heading.textContent = section;
+        detail.append(heading);
+        const list = document.createElement("table");
+        list.innerHTML = "<thead><tr><th>Exercise</th><th>Status</th></tr></thead>";
+        const body = document.createElement("tbody");
+        for (let number = 1; number <= done + incomplete; number += 1) {
+          const row = document.createElement("tr");
+          const isComplete = number <= done;
+          const issue = issueEntry && issueEntry.exercises.includes(number)
+            ? issueEntry.issue
+            : null;
+          const status = issue
+            ? `<span class="status-badge status-issue">
+                ${isComplete ? "Completed" : "Empty solution"} · Review issue #${issue.number}
+              </span>`
+            : `<span class="status-badge ${isComplete ? "status-complete" : "status-empty"}">
+                ${isComplete ? "Completed" : "Empty solution"}
+              </span>`;
+          row.innerHTML = `
+            <td>Problem ${String(number).padStart(2, "0")}</td>
+            <td>${status}</td>
+          `;
+          if (issue) {
+            row.lastElementChild.append(
+              document.createTextNode(" "),
+              createLink(issue.html_url, "View issue")
+            );
+          }
+          body.append(row);
+        }
+        list.append(body);
+        detail.append(list);
+        elements.exerciseDetails.append(detail);
+      }
+    }
+
+    function formatDate(value) {
+      return new Date(value).toLocaleString();
+    }
+
+    function createLink(href, text) {
+      const link = document.createElement("a");
+      link.href = href;
+      link.target = "_blank";
+      link.rel = "noreferrer";
+      link.textContent = text;
+      return link;
+    }
+
+    function renderIssues(issues) {
+      elements.issues.replaceChildren();
+      if (!issues.length) {
+        elements.issues.innerHTML = "<p class='good'>No open issues.</p>";
+        return;
+      }
+
+      for (const issue of issues) {
+        const card = document.createElement("article");
+        card.className = "issue";
+
+        const title = document.createElement("div");
+        title.className = "issue-title";
+        title.append(createLink(issue.html_url, `#${issue.number} — ${issue.title}`));
+
+        const meta = document.createElement("div");
+        meta.className = "issue-meta";
+        meta.textContent = `Updated ${formatDate(issue.updated_at)} by ${issue.user.login}`;
+
+        const body = document.createElement("p");
+        body.className = "issue-body";
+        body.textContent = issue.body
+          ? issue.body.replace(/\s+/g, " ").slice(0, 360) + (issue.body.length > 360 ? "…" : "")
+          : "No description.";
+
+        card.append(title, meta, body);
+        elements.issues.append(card);
+      }
+    }
+
+    function renderRuns(runs) {
+      elements.runs.replaceChildren();
+      if (!runs.length) {
+        elements.runs.innerHTML = "<p class='muted'>No workflow runs found.</p>";
+        return;
+      }
+
+      for (const run of runs) {
+        const item = document.createElement("p");
+        const state = run.conclusion || run.status;
+        item.append(
+          createLink(run.html_url, `${run.name} — ${state}`),
+          document.createTextNode(` (${formatDate(run.updated_at)})`)
+        );
+        elements.runs.append(item);
+      }
+    }
+
+    async function getJson(url) {
+      const response = await fetch(url, {
+        headers: { Accept: "application/vnd.github+json" }
+      });
+      if (!response.ok) {
+        throw new Error(`${response.status} ${response.statusText}`);
+      }
+      return response.json();
+    }
+
+    async function refresh() {
+      elements.refresh.disabled = true;
+      elements.status.textContent = "Checking GitHub…";
+      try {
+        const [issues, pulls, runs, commits] = await Promise.all([
+          getJson(`${apiBase}/issues?state=open&per_page=100`),
+          getJson(`${apiBase}/pulls?state=open&per_page=100`),
+          getJson(`${apiBase}/actions/runs?per_page=10`),
+          getJson(`${apiBase}/commits?per_page=1`)
+        ]);
+        const actualIssues = issues.filter(issue => !issue.pull_request);
+        elements.issueCount.textContent = actualIssues.length;
+        elements.issueCount.className = `metric ${actualIssues.length ? "warn" : "good"}`;
+        elements.prCount.textContent = pulls.length;
+        elements.prCount.className = `metric ${pulls.length ? "warn" : "good"}`;
+        elements.runCount.textContent = runs.total_count;
+        elements.runCount.className = "metric";
+        elements.latestCommit.textContent = commits[0]
+          ? commits[0].sha.slice(0, 7)
+          : "—";
+        renderIssues(actualIssues);
+        renderCompletion(actualIssues);
+        renderRuns(runs.workflow_runs);
+        elements.status.textContent = `Last checked: ${new Date().toLocaleString()}`;
+      } catch (error) {
+        elements.status.textContent = `GitHub check failed: ${error.message}`;
+        elements.status.className = "bad";
+      } finally {
+        elements.refresh.disabled = false;
+      }
+    }
+
+    elements.refresh.addEventListener("click", refresh);
+    renderCompletion();
+    refresh();
+  </script>
+</body>
+</html>
