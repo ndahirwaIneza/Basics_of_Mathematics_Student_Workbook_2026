@@ -15,9 +15,9 @@ $$
 \cos\theta = \frac{\mathbf{u} \cdot \mathbf{v}}{\|\mathbf{u}\|\|\mathbf{v}\|}.
 $$
 Because lengths are strictly positive ($\|\mathbf{u}\|\|\mathbf{v}\| > 0$), the sign of $\cos\theta$ is identical to the sign of $\mathbf{u} \cdot \mathbf{v}$:
-- If $\mathbf{u} \cdot \mathbf{v} > 0$, then $\cos\theta > 0$, so $\theta \in [0, \pi/2)$ (acute angle).
-- If $\mathbf{u} \cdot \mathbf{v} = 0$, then $\cos\theta = 0$, so $\theta = \pi/2$ (right angle).
-- If $\mathbf{u} \cdot \mathbf{v} < 0$, then $\cos\theta < 0$, so $\theta \in (\pi/2, \pi]$ (obtuse angle).
+- If $\mathbf{u} \cdot \mathbf{v} > 0$, then $\cos\theta > 0$, which corresponds to an acute angle ($0^\circ < \theta < 90^\circ$) or $\theta = 0^\circ$ for collinear vectors with the same orientation.
+- If $\mathbf{u} \cdot \mathbf{v} = 0$, then $\cos\theta = 0$, so $\theta = 90^\circ$ (orthogonal / right angle).
+- If $\mathbf{u} \cdot \mathbf{v} < 0$, then $\cos\theta < 0$, which corresponds to an obtuse angle ($90^\circ < \theta < 180^\circ$) or $\theta = 180^\circ$ for collinear vectors with opposite orientations.
 
 ---
 
@@ -27,7 +27,7 @@ Because lengths are strictly positive ($\|\mathbf{u}\|\|\mathbf{v}\| > 0$), the 
    $$
    u \cdot v = (1)(1) + (1)(0) + (0)(1) = 1 + 0 + 0 = 1
    $$
-   Since $u \cdot v = 1 > 0$, $\cos\theta > 0$, predicting an acute angle ($0^\circ \le \theta < 90^\circ$).
+   Since $u \cdot v = 1 > 0$, $\cos\theta > 0$. Because $u$ and $v$ are nonparallel (they are not scalar multiples of each other), $\theta \neq 0^\circ$, predicting a strictly acute angle ($0^\circ < \theta < 90^\circ$).
 
 2. Computation of the angle:
    Compute the lengths of $u$ and $v$:

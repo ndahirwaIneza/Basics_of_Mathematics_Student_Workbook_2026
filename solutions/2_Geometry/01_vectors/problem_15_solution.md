@@ -98,7 +98,7 @@ $$
 
 **Pass 1 — Algebraic check:** Since $b = 2a$, substituting directly into the angle formula with $c$: $\frac{b \cdot c}{\|b\|\|c\|} = \frac{(2a) \cdot c}{\|2a\|\|c\|} = \frac{2(a \cdot c)}{2\|a\|\|c\|} = \frac{a \cdot c}{\|a\|\|c\|} = \frac{5}{\sqrt{78}}$, confirming algebraic identity for pairs $(a, c)$ and $(b, c)$.
 
-**Pass 2 — Numerical check:** $78 \approx 8.83176$, so $\frac{5}{8.83176} \approx 0.566138$. $\arccos(0.566138) \approx 0.9690 \text{ rad} \approx 55.52^\circ$.
+**Pass 2 — Numerical check:** $\sqrt{78} \approx 8.83176$, so $\frac{5}{\sqrt{78}} \approx \frac{5}{8.83176} \approx 0.566138$. $\arccos(0.566138) \approx 0.9690 \text{ rad} \approx 55.52^\circ$.
 
 **Pass 3 — Consistency check:** Since $-1 \le \frac{5}{\sqrt{78}} \le 1$, the values lie strictly within the valid domain of the $\arccos$ function.
 

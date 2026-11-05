@@ -10,7 +10,7 @@ For any non-zero vector $\mathbf{v} \in \mathbb{R}^n$, its Euclidean length is $
 $$
 \mathbf{e} = \frac{\mathbf{v}}{\|\mathbf{v}\|}.
 $$
-By linearity of the norm, $\|\mathbf{e}\| = \left\|\frac{1}{\|\mathbf{v}\|} \mathbf{v}\right\| = \frac{1}{\|\mathbf{v}\|} \|\mathbf{v}\| = 1$. The representation $\mathbf{v} = \|\mathbf{v}\|\mathbf{e}$ factors any vector into its magnitude $\|\mathbf{v}\|$ and its direction/orientation $\mathbf{e}$.
+By absolute homogeneity of the norm ($\|c\mathbf{v}\| = |c|\|\mathbf{v}\|$), $\|\mathbf{e}\| = \left\|\frac{1}{\|\mathbf{v}\|} \mathbf{v}\right\| = \frac{1}{\|\mathbf{v}\|} \|\mathbf{v}\| = 1$. The representation $\mathbf{v} = \|\mathbf{v}\|\mathbf{e}$ factors any non-zero vector into its magnitude $\|\mathbf{v}\|$ and its direction/orientation $\mathbf{e}$.
 
 ---
 
@@ -56,7 +56,7 @@ $$
 
 ## Verification
 
-**Pass 1 — Algebraic check:** For any scalar $c > 0$ and vector $v$, $\left\|\frac{v}{\|v\|}\right\| = \frac{\|v\|}{\|v\|} = 1$. Here $c = \frac{1}{5}$, and $e$ is collinear with $v$ since $e = \frac{1}{5}v$.
+**Pass 1 — Algebraic check:** For any vector $v \neq 0$ and scalar $c > 0$, by absolute homogeneity $\left\|\frac{v}{\|v\|}\right\| = \frac{1}{\|v\|}\|v\| = 1$ (noting $v \neq 0$ so $v/\|v\|$ is well-defined). Here $c = \frac{1}{5} > 0$, preserving both the direction line and the orientation along that line, since $e = \frac{1}{5}v$.
 
 **Pass 2 — Numerical check:** $0.6^2 + 0.8^2 = 0.36 + 0.64 = 1.00$, and $\sqrt{1.00} = 1$.
 
