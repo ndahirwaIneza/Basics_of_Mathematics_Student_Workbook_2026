@@ -120,7 +120,7 @@ $$
 6. Why finite calculations or a sketch do not constitute a proof:
    - Unsampled domain points: A finite set of evaluations tests only a negligible fraction of an infinite domain. A function can appear to approach a limit across several tested points while violently oscillating on smaller scales. For example, $g(x) = \sin(\pi/x)$ evaluated at $x = \frac{1}{k}$ gives $g(1/k) = 0$ for all integers $k$, suggesting a limit of 0, whereas $g(x)$ actually oscillates infinitely between $-1$ and $+1$ as $x \to 0$ and has no limit.
    - Long-range departures: A sequence might appear stable over the first million terms, yet diverge for $n > 10^{12}$ (e.g. $s_n = 2.5 + \frac{\sin(n / 10^{12})}{10}$).
-   - Machine precision and roundoff: Numerical calculation on floating-point hardware suffers from cancellation errors. For instance, directly computing $\sqrt{n^2+5n}-n$ for $n = 10^{16}$ yields 0 instead of $2.5$ due to loss of significance.
+   - Machine precision and roundoff: Direct numerical calculation on floating-point hardware suffers from catastrophic cancellation errors for large $n$. For instance, evaluating $\sqrt{n^2+5n}-n$ directly at $n = 10^{16}$ in standard IEEE-754 binary64 arithmetic produces `2.0` instead of $\approx 2.5$ (and collapses to `0.0` at slightly larger $n$ such as $10^{17}$) due to rounding in the 53-bit significand when adding $5n$ to $n^2$.
    - Nature of universal quantifiers: The mathematical definition of a limit involves universal quantification ($\forall \varepsilon > 0$). Proving that $|a_n - L| < \varepsilon$ holds for every positive $\varepsilon$ requires a deductive algebraic or analytic argument that covers all infinite possibilities simultaneously.
 
 ---
@@ -137,13 +137,13 @@ $$
 
 **Pass 1 — Algebraic check:**
 Prove convergence via formal $\varepsilon$-$N$ and $\varepsilon$-$\delta$ bounds:
-- For $a_n$:
+- For $a_n$: Let $s = \sqrt{n^2+5n} > n$. Since $a_n = s - n = \frac{5n}{s + n} < \frac{5n}{2n} = \frac{5}{2}$, the error is positive and simplifies by rationalizing $s - n$ a second time:
 
 $$
-  \left|\left(\sqrt{n^2+5n}-n\right) - \frac{5}{2}\right| = \left|\frac{5n}{\sqrt{n^2+5n}+n} - \frac{5}{2}\right| = \frac{5\left(2n - n - \sqrt{n^2+5n}\right)}{2(\sqrt{n^2+5n}+n)} < \frac{25}{8n}
+  \left|a_n - \frac{5}{2}\right| = \frac{5}{2} - a_n = \frac{5}{2} - \frac{5n}{s+n} = \frac{5(s - n)}{2(s+n)} = \frac{5(s^2 - n^2)}{2(s+n)^2} = \frac{25n}{2(s+n)^2} < \frac{25n}{2(2n)^2} = \frac{25}{8n}
 $$
 
-  For any $\varepsilon > 0$, choosing $N = \lceil\frac{25}{8\varepsilon}\rceil$ ensures $|a_n - 2.5| < \varepsilon$ for all $n \ge N$.
+  (using $s + n > 2n$ in the denominator). For any $\varepsilon > 0$, choosing $N = \lceil\frac{25}{8\varepsilon}\rceil$ ensures $|a_n - 2.5| < \varepsilon$ for all $n \ge N$.
 - For $f(x)$:
 
 $$

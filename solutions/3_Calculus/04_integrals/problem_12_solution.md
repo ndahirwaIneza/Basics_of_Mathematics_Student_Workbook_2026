@@ -42,8 +42,39 @@ $$
 ## Solution
 
 1. Predicting from symmetry and sketch:
-   - For $f(x) = x$: The function is odd because $f(-x) = -x = -f(x)$. Its graph is a straight line through the origin with 180-degree rotational symmetry about $(0,0)$. On $[-2, 0]$, the graph forms a triangle below the $x$-axis of base $2$ and height $2$, contributing signed area $-2$. On $[0, 2]$, the graph forms a congruent triangle above the $x$-axis, contributing signed area $+2$. The two signed regions are equal in magnitude and opposite in sign, so they cancel completely. Prediction: $\int_{-2}^2 x\,dx = 0$.
-   - For $g(x) = |x|$: The function is even because $g(-x) = |-x| = |x| = g(x)$. Its graph is a V-shape symmetric across the $y$-axis. Both triangular regions lie entirely on or above the $x$-axis, so their contributions add together without cancellation. Prediction: $\int_{-2}^2 |x|\,dx = 2 \int_0^2 x\,dx = 2 \cdot 2 = 4$.
+   - For $f(x) = x$: The function is odd because $f(-x) = -x = -f(x)$. Its graph is a straight line through the origin with 180-degree rotational symmetry about $(0,0)$, joining endpoint $(-2, -2)$ to $(2, 2)$. On $[-2, 0]$, the graph forms a triangle below the $x$-axis of base $2$ and height $2$, contributing signed area $-2$. On $[0, 2]$, the graph forms a congruent triangle above the $x$-axis, contributing signed area $+2$. Because the signed regions have equal area and opposite signs, they cancel completely: $(-2) + (+2) = 0$. Prediction: $\int_{-2}^2 x\,dx = 0$.
+
+     ```text
+                                 y
+                                 ^          * (2, 2)
+                                 |        .'|
+                                 |      .' +|
+                                 |    .' +++| Area = +2 (above x-axis)
+                                 |  .' +++++|
+         -------------+----------*----------+----------> x
+                     -2        .'| (0, 0)   2
+                      |----- .'  |
+            Area = -2 |----.'    |
+            (below    |--.'      |
+             x-axis)  |.'        |
+                      *          |
+                  (-2, -2)       |
+     ```
+
+   - For $g(x) = |x|$: The function is even because $g(-x) = |-x| = |x| = g(x)$. Its graph is a V-shape symmetric across the $y$-axis from endpoint $(-2, 2)$ down to $(0, 0)$ and back up to $(2, 2)$. Both triangular regions (each of base $2$ and height $2$, area $+2$) lie entirely on or above the $x$-axis, so their signed areas have the same positive sign and add together without cancellation: $(+2) + (+2) = 4$. Prediction: $\int_{-2}^2 |x|\,dx = 2 \int_0^2 x\,dx = 2 \cdot 2 = 4$.
+
+     ```text
+                                 y
+                                 ^
+            (-2, 2) *            |            * (2, 2)
+                    |'.          |          .'|
+                    |+ '.        |        .' +|
+            Area=+2 |+++ '.      |      .' +++| Area=+2
+                    |+++++ '.    |    .' +++++|
+         -----------+--------'---*---'--------+----------> x
+                   -2         (0, 0)          2
+                                 |
+     ```
 
 2. Calculating $\int_{-2}^2 x\,dx$:
 

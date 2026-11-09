@@ -40,10 +40,25 @@ $$
 
 ## Solution
 
-1. Graph description:
-   - On the interval $[-1, 1)$, $f(x) = x + 1$. This is a line segment with slope $1$, starting on the $x$-axis at $(-1, 0)$ and rising to $(1, 2)$ (with open endpoint $(1,2)$).
+1. Graph description and sketch:
+   - On the interval $[-1, 1)$, $f(x) = x + 1$. This is a line segment with slope $1$, starting on the $x$-axis at $(-1, 0)$, crossing the $y$-axis at $(0, 1)$, and rising to the junction $(1, 2)$.
    - On the interval $[1, 3]$, $f(x) = 2$. This is a horizontal line segment of constant height $2$, starting at $(1, 2)$ and ending at $(3, 2)$.
-   At the junction point $x = 1$, $\lim_{x \to 1^-} f(x) = 1 + 1 = 2$ and $f(1) = 2$. Therefore, the two pieces meet continuously at $(1, 2)$, forming a continuous, piecewise linear curve.
+   At the junction point $x = 1$, $\lim_{x \to 1^-} f(x) = 1 + 1 = 2$ and $f(1) = 2$. Therefore, the two pieces meet continuously at $(1, 2)$, forming a continuous, piecewise linear curve whose area on $[-1, 3]$ splits cleanly into a triangle on $[-1, 1]$ and a rectangle on $[1, 3]$:
+
+   ```text
+                                 y
+                                 ^
+                                 |       *---------------* (3, 2)
+                               2 +     .'| (1, 2)        |
+                                 |   .'  :  [Junction]   |
+                               1 * .'    :   Rectangle   |
+                               .'|       :   width = 2   |
+                             .'  |       :   height = 2  |
+                  Triangle .'    |       :   Area = 4    |
+                  Area = 2       |       :               |
+         ----------------*-------+-------+---------------+----> x
+                        -1       0       1               3
+   ```
 
 2. Deciding where to split the integral:
    Because the formula defining $f(x)$ changes at $x = 1$, the integral over $[-1, 3]$ must be split at $c = 1$:

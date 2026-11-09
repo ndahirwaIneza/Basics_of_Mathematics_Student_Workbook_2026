@@ -148,18 +148,21 @@ $$
 
 8. Graph sketch:
    ```text
-                     y
-                     |          (1, 1/2) [Max]
-                     |           *---*
-                     |          /     \
-                     |         /       * I3 (sqrt(3), sqrt(3)/4)
-                     |        /         \
-   -- - - - - - - - -+-------*-----------* - - - - - - - - > x  (y = 0)
-            \        |     (0, 0)
-   I1 *       \      |      [Infl]
-       \       *     |
-        *---*   (-1, -1/2) [Min]
-   (-sqrt(3), -sqrt(3)/4)
+                                         y
+                                         ^          (1, 1/2) [Global Max]
+                                         |            .--*--.
+                                         |         .-'       '-.
+                                         |       .'             '.  I3 (sqrt(3), sqrt(3)/4)
+                                         |     .'                 *---.___  (stays > 0)
+                                         |   .'
+       - - - - - - - - - - - - - - - - - *-----------------------------------> x  (y = 0)
+         (stays < 0)                   .'|  (0, 0) [Infl / Only Zero]
+          ___..---*                  .'  |
+               I1  '.              .'    |
+                     '-.        .-'      |
+                        '--*--'          |
+                       (-1, -1/2)        |
+                      [Global Min]       |
    ```
    Qualitative features:
    - Starts near $y = 0$ as $x \to -\infty$, decreases through inflection point $I_1 = (-\sqrt{3}, -\sqrt{3}/4)$.

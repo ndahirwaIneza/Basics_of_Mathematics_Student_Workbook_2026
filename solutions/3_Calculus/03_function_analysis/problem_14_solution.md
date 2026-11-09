@@ -45,17 +45,22 @@ $$
    - At $x = 1$: $f'$ changes sign from $-$ to $+$. Therefore, $f$ has a local minimum at $x = 1$.
 
 2. Qualitative sketch of $f(x)$:
-   Because $f'(x)$ is a quadratic with positive leading coefficient, any antiderivative $f(x)$ is a cubic polynomial with a positive leading coefficient.
+   Because $f'(x)$ is a quadratic with positive leading coefficient, any antiderivative $f(x)$ is a cubic polynomial with a positive leading coefficient. Since adding a constant $C$ translates the curve vertically without changing the critical $x$-coordinates, the maximum at $x = -2$ lies strictly to the left of the $y$-axis ($x = 0$) and the minimum at $x = 1$ lies strictly to its right:
    ```text
-              y
-              |          * (-2, f(-2)) [Local Max]
-              |         / \
-              |        /   \
-   -----------+-------/-----*------------------> x
-             /|      /       \     * (1, f(1)) [Local Min]
-            / |     /         \___/ \
-           /  |    /                 \
-              |   /                   \
+                                    y
+               (-2, f(-2))          ^                        / (+inf)
+                [Local Max]         |                       /
+                  .-*-.             |                      /
+                 /     '.           |                     /
+                /        '.         |                    /
+       -------------+---------------+-------------------/--------> x
+              /  x = -2    '.       | (0, f(0))        /
+             /               '.     |                 /
+            /                  '-.  | (vertical position depends on +C;
+           /                      '-*  setting C = 0 gives g(x) through (0, 0))
+        (-inf)                      |'.         .-'
+                                    |  '-..*..-'
+                                    |    (1, f(1)) [Local Min]
    ```
    Qualitative features:
    - Ascends from $-\infty$ as $x \to -\infty$.
@@ -121,7 +126,23 @@ $$
    The specific graph of $g$ perfectly realizes the qualitative sketch:
    - Monotonicity and critical locations are identical ($x = -2$ and $x = 1$).
    - The qualitative sketch allowed the curve to float vertically; the specific equation $g(x)$ pins the local maximum at height $+10/3$ (strictly above the $x$-axis) and the local minimum at height $-7/6$ (strictly below the $x$-axis).
-   - Because $g(-2) > 0$ and $g(1) < 0$, the intermediate value theorem guarantees that the descending branch must cross the $x$-axis, which occurs precisely at $x = 0$.
+   - Because $g(-2) > 0$ and $g(1) < 0$, the intermediate value theorem guarantees that the descending branch must cross the $x$-axis, which occurs precisely at $x = 0$:
+
+   ```text
+                                    y
+               (-2, 10/3)           ^                         / (+inf)
+               [Local Max]          |                        /
+                  .-*-.             |                       /
+                 /     '.           |                      /
+                /        '-.        |                     /
+               /            '-.     |                    /
+              /                '-.  |                   /
+       ------*----------------------*------------------*-------> x
+            / (-3.31, 0)            |'. (0, 0)        / (1.81, 0)
+           /                        |  '.            /
+          /                         |    '-.._ * _.-'
+       (-inf)                       |        (1, -7/6) [Local Min]
+   ```
 
 ---
 

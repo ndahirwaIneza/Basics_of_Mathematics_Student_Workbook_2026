@@ -120,19 +120,19 @@ $$
 
 5. Graph sketch:
    ```text
-              y
-       \      |      /
-        \     |     /
-   ------*----+----*------> x
-     (-2, 0)  |  (2, 0)
-          \ (0, 0) [Local Max]
-           \  *  /
-            \/ \/
-        I1 *     * I2  [Inflection points y = -20/9]
-          /       \
-         *         *
-    (-sqrt(2),-4) (sqrt(2),-4)
-    [Local Min]   [Local Min]
+                                        y  (0, 0) [Local Max]
+             \                          ^                          /
+              \                         |                         /
+       --------*------------------------*------------------------*--------> x
+        (-2,0)  \                    .-'|'-.                    /  (2,0)
+                 \                .-'   |   '-.                /
+                  \           I1 *      |      * I2           /  (y = -20/9)
+                   \           .'       |       '.           /
+                    '.       .'         |         '.       .'
+                      '-. .-'           |           '-. .-'
+                         *              |              *
+                  (-sqrt(2), -4)        |        (sqrt(2), -4)
+                   [Local Min]          |         [Local Min]
    ```
    Qualitative features:
    - Classic symmetric "W-shape".

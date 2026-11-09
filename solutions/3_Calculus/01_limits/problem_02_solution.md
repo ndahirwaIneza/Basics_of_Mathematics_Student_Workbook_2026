@@ -102,7 +102,13 @@ $$
 \frac{2(10^9) - 1000}{5(10^6) + 1} = \frac{1999999000}{5000001} \approx 399.9997 \to +\infty
 $$
 
-**Pass 3 — Consistency check:** Since $3n+1 < n^2+4$ for all $n \ge 1$, the first sequence is bounded between 0 and 1 and decreases towards 0. For the second sequence, $2n^3 - n > 0$ and $5n^2+1 > 0$ for $n \ge 1$, and its leading term behaves as $\frac{2}{5}n$, which is positive and unbounded.
+**Pass 3 — Consistency check:** For the first sequence, $0 < a_n < 1$ for all $n \ge 1$ since $0 < 3n+1 < n^2+4$ ($n^2 - 3n + 3 = (n - \frac{3}{2})^2 + \frac{3}{4} > 0$). Note that the sequence is not decreasing starting at $n = 1$, because $a_1 = \frac{4}{5} = 0.8 < a_2 = \frac{7}{8} = 0.875$. However, for $n \ge 2$,
+
+$$
+a_{n+1} - a_n = \frac{-3n^2 - 5n + 11}{\left((n+1)^2 + 4\right)(n^2 + 4)} < 0,
+$$
+
+because $3n^2 + 5n \ge 22 > 11$ for every $n \ge 2$, so the sequence is strictly decreasing for $n \ge 2$ toward $0$ (monotonicity from the first term is not required for convergence). For the second sequence, $2n^3 - n > 0$ and $5n^2+1 > 0$ for $n \ge 1$, and its leading term behaves as $\frac{2}{5}n$, which is positive and unbounded.
 
 ---
 

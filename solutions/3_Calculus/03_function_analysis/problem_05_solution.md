@@ -121,7 +121,7 @@ $$
 
 **Pass 2 — Numerical check:** Evaluate test points: $f(0) = 0 \cdot 1 = 0$; $f(1) = e^{-1} \approx 0.3679$; $f(2) = 2e^{-2} \approx 0.2707 < f(1)$; $f(5) = 5e^{-5} \approx 0.0337$; $f(10) = 10e^{-10} \approx 0.00045$. The values strictly decrease towards 0 for $x > 1$.
 
-**Pass 3 — Consistency check:** Since $f(0) = 0$ and $f(x) \to 0$ as $x \to \infty$, Rolle's theorem on $[0, \infty)$ implies there must exist at least one point $c \in (0, \infty)$ where $f'(c) = 0$. The unique solution $x = 1$ is consistent with this requirement.
+**Pass 3 — Consistency check:** The explicit derivative sign change already proved ($f'(x) > 0$ on $(-\infty, 1)$ and $f'(x) < 0$ on $(1, \infty)$) establishes that $x = 1$ is the unique global maximum. Independently, on any closed bounded interval $[0, b]$ with $b > 1$ chosen large enough that $f(b) < f(1)$ (for instance $[0, 10]$, where $f(0) = 0$ and $f(10) = 10e^{-10} < e^{-1}$), continuity of $f$ on $[0, b]$ guarantees by the Extreme Value Theorem an interior global maximum $c \in (0, b)$ where differentiability forces $f'(c) = 0$, consistent with the unique critical point $x = 1$.
 
 ---
 

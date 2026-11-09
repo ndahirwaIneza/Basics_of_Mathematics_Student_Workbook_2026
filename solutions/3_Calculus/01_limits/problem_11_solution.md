@@ -97,8 +97,8 @@ $$
 Compute values for increasing $n$:
 - $n = 1$: $\sqrt[1]{5^1 + 2^1} = 7$
 - $n = 2$: $\sqrt{5^2 + 2^2} = \sqrt{25 + 4} = \sqrt{29} \approx 5.38516$
-- $n = 5$: $\sqrt[5]{5^5 + 2^5} = \sqrt[5]{3125 + 32} = \sqrt[5]{3157} \approx 5.02029$
-- $n = 10$: $\sqrt[10]{5^{10} + 2^{10}} = \sqrt[10]{9765625 + 1024} = \sqrt[10]{9766649} \approx 5.00010$
+- $n = 5$: $\sqrt[5]{5^5 + 2^5} = \sqrt[5]{3125 + 32} = \sqrt[5]{3157} \approx 5.01019831$
+- $n = 10$: $\sqrt[10]{5^{10} + 2^{10}} = \sqrt[10]{9765625 + 1024} = \sqrt[10]{9766649} \approx 5.00005243$
 The values converge rapidly and monotonically to 5.
 
 **Pass 3 — Consistency check:** For any two positive constants $a, b > 0$, $\lim_{n\to\infty} \sqrt[n]{a^n + b^n} = \max(a, b)$. Since $\max(5, 2) = 5$, the result is completely consistent with the general $\ell^\infty$ norm limit $\lim_{p\to\infty} \|(a, b)\|_p = \|(a, b)\|_\infty$.

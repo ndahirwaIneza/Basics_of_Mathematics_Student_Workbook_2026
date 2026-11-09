@@ -62,7 +62,7 @@ $$
 $$
 
 4. Explaining the source of the logarithm:
-   The power rule $\int u^n\,du = \frac{u^{n+1}}{n+1}$ applies to all real exponents except $n = -1$, where division by zero would occur. In this integrand, after substitution the exponent of $u$ in the denominator is exactly $-1$, that is, $u^{-1} = \frac{1}{u}$. The unique differentiable function satisfying $\frac{d}{du}(\ln|u|) = \frac{1}{u}$ on its domain is the natural logarithm. Thus, whenever an integrand exhibits the structure $\frac{g'(x)}{g(x)}$, the result is fundamentally logarithmic.
+   The power rule $\int u^n\,du = \frac{u^{n+1}}{n+1}$ applies to all real exponents except $n = -1$, where division by zero would occur. In this integrand, after substitution the exponent of $u$ in the denominator is exactly $-1$, that is, $u^{-1} = \frac{1}{u}$. Because $\frac{d}{du}(\ln|u|) = \frac{1}{u}$ on each interval avoiding $0$ (and a derivative does not determine a single unique antiderivative without an initial condition), an antiderivative is $\ln|u|$; the whole family is $\ln|u| + C$ on each interval avoiding $0$. Thus, whenever an integrand exhibits the structure $\frac{g'(x)}{g(x)}$, the result is fundamentally logarithmic.
 
 ---
 

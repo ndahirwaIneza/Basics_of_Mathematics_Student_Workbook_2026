@@ -60,11 +60,32 @@ $$
 
    and neither limit is a finite real number, the two-sided limit $\lim_{x\to2} \frac{1}{x-2}$ does not exist.
 
-4. Geometric interpretation and vertical asymptote:
-   - The line $x = 2$ is a vertical asymptote of the curve $y = f(x)$.
-   - Left side: As $x$ increases toward 2 from values less than 2, the curve plunges downward toward negative infinity along the left side of the asymptote $x = 2$.
-   - Right side: As $x$ decreases toward 2 from values greater than 2, the curve shoots upward toward positive infinity along the right side of the asymptote $x = 2$.
-   - The graph represents a standard rectangular hyperbola $y = \frac{1}{x}$ translated 2 units to the right, showing opposite infinite branches around the vertical asymptote $x = 2$ and approaching the horizontal asymptote $y = 0$ as $x \to \pm\infty$.
+4. Geometric interpretation, graph sketch, and vertical asymptote:
+   - The line $x = 2$ is a vertical asymptote of the curve $y = f(x)$, and the line $y = 0$ (the $x$-axis) is a horizontal asymptote.
+   - Left side ($x < 2$): As $x$ increases toward 2 from the left, the negative branch decreases strictly from $y = 0^-$ (passing through $(0, -0.5)$ and $(1, -1)$) and plunges downward toward $-\infty$ along the left side of the vertical asymptote $x = 2$.
+   - Right side ($x > 2$): As $x$ moves right from $x = 2^+$, the positive branch descends from $+\infty$ along the right side of $x = 2$, passes through $(3, 1)$ and $(4, 0.5)$, and approaches $y = 0^+$ asymptotically as $x \to +\infty$.
+   - The graph is the standard rectangular hyperbola $y = \frac{1}{x}$ shifted $2$ units to the right:
+
+```text
+                    y           :  x = 2 (vertical asymptote)
+                    ^           :  (+inf)
+                    |           :  |
+                    |           :  |
+                    |           :  \
+                    |           :   * (3, 1)
+                    |           :    '-.  (4, 0.5)
+                    |           :       '---*---.___
+  ------------------+-----------+-------------------> x  (horizontal asymptote y = 0)
+       ___..---''   |           : 2   3     4
+                    * (0,-0.5)  :
+                    | '-._      :
+                    |     * (1,-1)
+                    |      \    :
+                    |       |   :
+                    |       |   :
+                            v   :
+                         (-inf) :
+```
 
 ---
 

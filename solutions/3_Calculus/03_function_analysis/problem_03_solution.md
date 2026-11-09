@@ -105,19 +105,23 @@ $$
 
 6. Graph sketch:
    ```text
-                      |       :
-                      |       :   * (branch approaches y=1 from above)
-                      |       :    \
-              y = 1 - - - - - : - - \ - - - - - - - - -
-                      |       :      \
-                      |       :       * (branch goes to +inf as x -> 2+)
-   -------------------*-------+-------:-----------------> x
-             (-1, 0) /|       :       : x = 2
-                    / |       :
-        (0, -1/2)  *  |       :
-                  /   |       :
-                 *    |       :
-      (branch to -inf)|       :
+                                   y              : x = 2
+                                   ^              : | (+inf)
+                                   |              : |
+                                   |              : \
+                                   |              :  '-.____   (stays above y = 1)
+       y = 1  - - - - - - - - - - -+ - - - - - - -: - - - - - - - - - - -
+              ____..---''          |              :
+       ------*---------------------+--------------:----------------------> x
+         (-1, 0) ''--.._           |              :
+                        ''--.._    |              :
+                               ''--* (0, -1/2)    :
+                                   |''--.._       :
+                                   |       '-.    :
+                                   |          \   :
+                                   |           |  :
+                                   |           v  :
+                                   |         (-inf)
    ```
    Qualitative features:
    - Left branch ($x < 2$): Starts near $y = 1$ from below as $x \to -\infty$, decreases through $(-1, 0)$ and $(0, -1/2)$, remains concave down, and plunges towards $-\infty$ along the vertical asymptote $x = 2$.

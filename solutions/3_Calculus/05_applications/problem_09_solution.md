@@ -104,13 +104,19 @@ $$
 
 ## Verification
 
-**Pass 1 — Algebraic check:** Use the AM-GM inequality on the three terms of $A(r) = \pi r^2 + \pi r^2 + \frac{2V}{r}$:
+**Pass 1 — Algebraic check:** Apply the three-term AM-GM inequality to the split $A(r) = 2\pi r^2 + \frac{V}{r} + \frac{V}{r}$ for $r > 0$ and $V > 0$:
 
 $$
-A(r) = \pi r^2 + \pi r^2 + \frac{V}{r} + \frac{V}{r} \ge 4 \sqrt[4]{\pi r^2 \cdot \pi r^2 \cdot \frac{V}{r} \cdot \frac{V}{r}} = 4 \sqrt[4]{\pi^2 V^2} = 4 \sqrt{\pi V}
+A(r) = 2\pi r^2 + \frac{V}{r} + \frac{V}{r} \ge 3\sqrt[3]{2\pi r^2 \cdot \frac{V}{r} \cdot \frac{V}{r}} = 3\left(2\pi V^2\right)^{1/3}
 $$
 
-Equality in AM-GM holds when all terms are equal: $\pi r^2 = \frac{V}{r}$, which gives $V = \pi r^3$. Substituting $V = \pi r^2 h$ yields $\pi r^2 h = \pi r^3 \implies h = r$ for an open can, or for a closed can: $\pi r^2 = \pi r^2 = \frac{V}{r} \implies V = \pi r^3 \implies \pi r^2 h = 2\pi r^3 \implies h = 2r$. This confirms $h = 2r$ algebraically.
+The product inside the cube root simplifies to $2\pi V^2$, which is constant and independent of $r$. Equality in AM-GM holds if and only if all three summands are equal:
+
+$$
+2\pi r^2 = \frac{V}{r} \iff V = 2\pi r^3
+$$
+
+Substituting $V = \pi r^2 h$ yields $\pi r^2 h = 2\pi r^3 \implies h = 2r$ (since $r > 0$). This algebraically confirms $h = 2r$ as the global minimum without differentiation.
 
 **Pass 2 — Numerical check:** Let $V = 2\pi \approx 6.283$. Then $2\pi r^3 = 2\pi \implies r = 1$, which gives $h = \frac{2\pi}{\pi(1)^2} = 2 = 2r$. The area is $A(1) = 2\pi(1)^2 + \frac{2(2\pi)}{1} = 6\pi \approx 18.8495$.
 - Test $r = 0.8$: $h = \frac{2}{0.64} = 3.125 \implies A(0.8) = 2\pi(0.64) + 2\pi(0.8)(3.125) = 1.28\pi + 5\pi = 6.28\pi \approx 19.729 > 6\pi$.

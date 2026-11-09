@@ -11,13 +11,13 @@ Propose a simple equation for such a surface and justify your choice.
 
 ## Relevant theorem / definition
 
-A surface of revolution with axis of symmetry $Oz$ has the general Cartesian form:
+A surface of revolution with axis of symmetry $Oz$ has an implicit Cartesian equation of the form:
 
 $$
-F\left(x^2 + y^2, z\right) = 0 \iff z = f\left(\sqrt{x^2 + y^2}\right) = f(\rho)
+F\left(x^2 + y^2, z\right) = 0
 $$
 
-where $\rho = \sqrt{x^2 + y^2}$ is the radial distance from the $Oz$ axis. Planar sections through the rotation axis have equation $z = f(\rho)$ in coordinate plane $(\rho, z)$.
+where $\rho = \sqrt{x^2 + y^2}$ is the radial distance from the $Oz$ axis. In general, $F(\rho^2, z) = 0$ need not solve globally to a single graph $z = f(\rho)$ (for example, the sphere $x^2 + y^2 + z^2 - R^2 = 0$ has two branches $z = \pm\sqrt{R^2 - \rho^2}$). When a single-valued profile branch is present, it takes the form $z = f(\rho)$, so planar cross-sections containing $Oz$ are given by $z = f(\rho)$ in the $(\rho, z)$ half-plane.
 
 ---
 
@@ -36,7 +36,7 @@ $$
 x^2 + y^2 = [r(c)]^2
 $$
 
-     with radius $r(c)$ strictly increasing with $c$, meaning $r'(c) > 0$.
+     with radius $r(c)$ strictly increasing with $c$ (that is, $0 < c_1 < c_2 \implies r(c_1) < r(c_2)$; for a differentiable radius function on $(0, \infty)$, having $r'(c) > 0$ is a sufficient condition for strict increase, though not the definition or necessary in general).
    - **Condition 3:** Any vertical plane containing the $Oz$ axis has Cartesian equation $y = kx$ (for $k \in \mathbb{R}$) or $x = 0$. The cross-section in this plane must be a parabola symmetric about $Oz$.
 
 2. Relate radius to height using the parabolic condition:
@@ -79,7 +79,7 @@ $$
 x^2 + y^2 = c = (\sqrt{c})^2
 $$
 
-     This is a circle in the plane $z = c$ with radius $r(c) = \sqrt{c}$. Because $\frac{dr}{dc} = \frac{1}{2\sqrt{c}} > 0$ for all $c > 0$, the radius is strictly increasing as $c$ increases.
+     This is a circle in the plane $z = c$ with radius $r(c) = \sqrt{c}$. Because $\frac{dr}{dc} = \frac{1}{2\sqrt{c}} > 0$ for all $c > 0$ (which is sufficient for a differentiable function to be strictly increasing on $(0, \infty)$), the radius increases strictly as $c$ increases.
    - **Check property 3 (vertical cross-sections through $Oz$):**
      - For $x = 0$ (the $yz$-plane): $z = y^2$, a standard parabola with vertex at $(0,0,0)$.
      - For $y = 0$ (the $xz$-plane): $z = x^2$, a standard parabola with vertex at $(0,0,0)$.

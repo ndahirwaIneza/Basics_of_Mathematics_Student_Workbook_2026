@@ -101,7 +101,12 @@
     }
 
     .issue-title {
+      align-items: center;
+      display: flex;
+      flex-wrap: wrap;
       font-weight: 700;
+      gap: .5rem;
+      justify-content: space-between;
       margin-bottom: .4rem;
     }
 
@@ -115,6 +120,17 @@
       line-height: 1.45;
       margin: .65rem 0 0;
       white-space: pre-wrap;
+    }
+
+    .issue-list {
+      margin: .55rem 0 0;
+      padding-left: 1.25rem;
+    }
+
+    .issue-list li {
+      color: #d1d5db;
+      line-height: 1.45;
+      margin-bottom: .35rem;
     }
 
     table {
@@ -209,15 +225,14 @@
     </section>
 
     <section class="card notice">
-      <h2>Local worktree snapshot</h2>
+      <h2>Local worktree &amp; review snapshot</h2>
       <p>
-        Last checked locally: <strong>main is synchronized with origin/main</strong>,
-        but the worktree contains uncommitted workbook changes. Review them in VS Code
-        Source Control before committing.
+        Last checked locally: <strong>177/177 exercises completed</strong>, with all review
+        revisions across issues #1–#12 resolved and synchronized on <code>main</code>.
       </p>
       <p class="muted">
         A browser page cannot read your local Git worktree for security reasons.
-        The Refresh button checks GitHub live; it does not commit or push files.
+        The Refresh button queries GitHub live (issues, chronological review comments, PRs, workflow runs, and commits).
       </p>
     </section>
 
@@ -275,7 +290,7 @@
     };
 
     const completionSnapshot = {
-      checkedAt: "2026-11-05T05:13:32.654032+01:00",
+      checkedAt: "2026-11-09T07:21:51.388913+01:00",
       sections: [
         ["1_Algebra/01_matrices_and_operations", 15, 0],
         ["1_Algebra/02_determinants", 15, 0],
@@ -292,30 +307,85 @@
       ]
     };
 
-    function getExerciseIssues(issues) {
-      const exerciseIssues = new Map();
-      for (const issue of issues) {
-        const titleMatch = issue.title.match(/^Review\s+—\s+(.+)$/);
-        if (!titleMatch || !issue.body) {
-          continue;
-        }
-        const section = titleMatch[1];
-        const exercises = [...issue.body.matchAll(
-          /### Exercise (\d+) — Needs revision/g
-        )].map(match => Number(match[1]));
-        if (exercises.length) {
-          exerciseIssues.set(section, { issue, exercises });
+    function parseIssueReviewState(issue, comments = []) {
+      const sortedComments = [...comments].sort(
+        (a, b) => new Date(a.created_at) - new Date(b.created_at)
+      );
+      const sources = [
+        { body: issue.body || "", url: issue.html_url, updatedAt: issue.created_at },
+        ...sortedComments.map(comment => ({
+          body: comment.body || "",
+          url: comment.html_url,
+          updatedAt: comment.created_at
+        }))
+      ];
+
+      const exerciseMap = new Map();
+      const headingRegex = /^### Exercise (\d+)\s+[—–-]\s+(accepted|needs revision)\b/gim;
+
+      for (const src of sources) {
+        const matches = [...src.body.matchAll(headingRegex)];
+        for (let i = 0; i < matches.length; i += 1) {
+          const match = matches[i];
+          const exerciseNumber = Number(match[1]);
+          const status = match[2].toLowerCase();
+          const sliceStart = match.index + match[0].length;
+          const nextMatchIndex = i + 1 < matches.length ? matches[i + 1].index : src.body.length;
+          const tail = src.body.slice(sliceStart, nextMatchIndex);
+          const sectionBreak = tail.search(/\r?\n##\s+/);
+          const sliceEnd = sectionBreak === -1 ? nextMatchIndex : sliceStart + sectionBreak;
+          const feedback = src.body.slice(sliceStart, sliceEnd).trim().replace(/\s+/g, " ");
+          exerciseMap.set(exerciseNumber, {
+            exercise: exerciseNumber,
+            status,
+            feedback,
+            url: src.url,
+            updatedAt: src.updatedAt
+          });
         }
       }
-      return exerciseIssues;
+
+      return exerciseMap;
     }
 
-    function renderCompletion(issues = []) {
-      const exerciseIssues = getExerciseIssues(issues);
+    function getExerciseIssues(issues, comments = []) {
+      const commentsByIssueUrl = new Map();
+      for (const comment of comments) {
+        const list = commentsByIssueUrl.get(comment.issue_url) || [];
+        list.push(comment);
+        commentsByIssueUrl.set(comment.issue_url, list);
+      }
+
+      const sectionReviews = new Map();
+      for (const issue of issues) {
+        const titleMatch = issue.title.match(/^Review\s+[—–-]\s+(.+)$/);
+        if (!titleMatch) {
+          continue;
+        }
+        const section = titleMatch[1].trim();
+        const issueComments = commentsByIssueUrl.get(issue.url) || [];
+        const reviewMap = parseIssueReviewState(issue, issueComments);
+        const allEntries = [...reviewMap.values()].sort((a, b) => a.exercise - b.exercise);
+        const needsRevision = allEntries.filter(entry => entry.status === "needs revision");
+        const accepted = allEntries.filter(entry => entry.status === "accepted");
+        sectionReviews.set(section, {
+          issue,
+          comments: issueComments,
+          reviewMap,
+          exercises: needsRevision.map(entry => entry.exercise),
+          needsRevision,
+          accepted
+        });
+      }
+      return sectionReviews;
+    }
+
+    function renderCompletion(issues = [], comments = []) {
+      const exerciseIssues = getExerciseIssues(issues, comments);
       const completed = completionSnapshot.sections.reduce((sum, section) => sum + section[1], 0);
       const total = completionSnapshot.sections.reduce((sum, section) => sum + section[1] + section[2], 0);
       const issueCount = [...exerciseIssues.values()]
-        .reduce((sum, entry) => sum + entry.exercises.length, 0);
+        .reduce((sum, entry) => sum + entry.needsRevision.length, 0);
       elements.completionCount.textContent = `${completed}/${total}`;
       elements.completionCount.className = `metric ${completed === total ? "good" : "warn"}`;
       elements.exerciseIssueCount.textContent = issueCount;
@@ -325,9 +395,9 @@
 
       for (const [section, done, incomplete] of completionSnapshot.sections) {
         const issueEntry = exerciseIssues.get(section);
-        const sectionIssueCount = issueEntry ? issueEntry.exercises.length : 0;
+        const sectionIssueCount = issueEntry ? issueEntry.needsRevision.length : 0;
         const row = document.createElement("tr");
-        const progress = total ? Math.round((done / (done + incomplete)) * 100) : 0;
+        const progress = done + incomplete ? Math.round((done / (done + incomplete)) * 100) : 0;
         row.innerHTML = `
           <td><code>${section}</code></td>
           <td class="good">${done}</td>
@@ -346,29 +416,29 @@
         list.innerHTML = "<thead><tr><th>Exercise</th><th>Status</th></tr></thead>";
         const body = document.createElement("tbody");
         for (let number = 1; number <= done + incomplete; number += 1) {
-          const row = document.createElement("tr");
+          const exRow = document.createElement("tr");
           const isComplete = number <= done;
-          const issue = issueEntry && issueEntry.exercises.includes(number)
-            ? issueEntry.issue
-            : null;
-          const status = issue
+          const reviewItem = issueEntry ? issueEntry.reviewMap.get(number) : null;
+          const needsRevision = reviewItem && reviewItem.status === "needs revision";
+          const isAccepted = reviewItem && reviewItem.status === "accepted";
+          const badge = needsRevision
             ? `<span class="status-badge status-issue">
-                ${isComplete ? "Completed" : "Empty solution"} · Review issue #${issue.number}
+                ${isComplete ? "Completed" : "Empty solution"} · Issue #${issueEntry.issue.number} (needs revision)
               </span>`
             : `<span class="status-badge ${isComplete ? "status-complete" : "status-empty"}">
-                ${isComplete ? "Completed" : "Empty solution"}
+                ${isComplete ? "Completed" : "Empty solution"}${isAccepted ? ` · Accepted (#${issueEntry.issue.number})` : ""}
               </span>`;
-          row.innerHTML = `
+          exRow.innerHTML = `
             <td>Problem ${String(number).padStart(2, "0")}</td>
-            <td>${status}</td>
+            <td>${badge}</td>
           `;
-          if (issue) {
-            row.lastElementChild.append(
+          if (needsRevision) {
+            exRow.lastElementChild.append(
               document.createTextNode(" "),
-              createLink(issue.html_url, "View issue")
+              createLink(reviewItem.url || issueEntry.issue.html_url, "View feedback")
             );
           }
-          body.append(row);
+          body.append(exRow);
         }
         list.append(body);
         detail.append(list);
@@ -389,14 +459,27 @@
       return link;
     }
 
-    function renderIssues(issues) {
+    function renderIssues(issues, comments = []) {
       elements.issues.replaceChildren();
       if (!issues.length) {
         elements.issues.innerHTML = "<p class='good'>No open issues.</p>";
         return;
       }
 
+      const commentsByIssueUrl = new Map();
+      for (const comment of comments) {
+        const list = commentsByIssueUrl.get(comment.issue_url) || [];
+        list.push(comment);
+        commentsByIssueUrl.set(comment.issue_url, list);
+      }
+
       for (const issue of issues) {
+        const issueComments = commentsByIssueUrl.get(issue.url) || [];
+        const reviewMap = parseIssueReviewState(issue, issueComments);
+        const entries = [...reviewMap.values()].sort((a, b) => a.exercise - b.exercise);
+        const needsRevision = entries.filter(entry => entry.status === "needs revision");
+        const accepted = entries.filter(entry => entry.status === "accepted");
+
         const card = document.createElement("article");
         card.className = "issue";
 
@@ -404,17 +487,53 @@
         title.className = "issue-title";
         title.append(createLink(issue.html_url, `#${issue.number} — ${issue.title}`));
 
+        if (entries.length) {
+          const pill = document.createElement("span");
+          if (needsRevision.length) {
+            pill.className = "status-badge status-issue";
+            pill.textContent = `${needsRevision.length} needing revision · ${accepted.length} accepted`;
+          } else {
+            pill.className = "status-badge status-complete";
+            pill.textContent = `All ${accepted.length} accepted`;
+          }
+          title.append(pill);
+        }
+
         const meta = document.createElement("div");
         meta.className = "issue-meta";
-        meta.textContent = `Updated ${formatDate(issue.updated_at)} by ${issue.user.login}`;
+        const author = issue.user ? issue.user.login : "unknown";
+        const commentLabel = issueComments.length === 1 ? "1 comment" : `${issueComments.length} comments`;
+        meta.textContent = `Updated ${formatDate(issue.updated_at)} by ${author} · ${commentLabel}`;
 
-        const body = document.createElement("p");
-        body.className = "issue-body";
-        body.textContent = issue.body
-          ? issue.body.replace(/\s+/g, " ").slice(0, 360) + (issue.body.length > 360 ? "…" : "")
-          : "No description.";
+        card.append(title, meta);
 
-        card.append(title, meta, body);
+        if (needsRevision.length) {
+          const list = document.createElement("ul");
+          list.className = "issue-list";
+          for (const item of needsRevision) {
+            const li = document.createElement("li");
+            const excerpt = item.feedback.slice(0, 220) + (item.feedback.length > 220 ? "…" : "");
+            const strong = document.createElement("strong");
+            strong.textContent = `Exercise ${item.exercise}: `;
+            li.append(strong, document.createTextNode(excerpt));
+            list.append(li);
+          }
+          card.append(list);
+        } else if (entries.length) {
+          const body = document.createElement("p");
+          body.className = "issue-body good";
+          body.textContent = "All reviewed exercises in this issue are currently accepted (follow-up comments applied).";
+          card.append(body);
+        } else {
+          const cleanBody = (issue.body || "").replace(/<!--[\s\S]*?-->/g, "").replace(/\s+/g, " ").trim();
+          const body = document.createElement("p");
+          body.className = "issue-body";
+          body.textContent = cleanBody
+            ? cleanBody.slice(0, 360) + (cleanBody.length > 360 ? "…" : "")
+            : "No description.";
+          card.append(body);
+        }
+
         elements.issues.append(card);
       }
     }
@@ -447,12 +566,46 @@
       return response.json();
     }
 
+    function getNextLink(linkHeader) {
+      if (!linkHeader) {
+        return null;
+      }
+      for (const part of linkHeader.split(",")) {
+        const pieces = part.split(";").map(p => p.trim());
+        if (pieces.length >= 2 && pieces.slice(1).includes('rel="next"')) {
+          return pieces[0].replace(/^<|>$/g, "");
+        }
+      }
+      return null;
+    }
+
+    async function getAllPages(startUrl) {
+      const items = [];
+      let url = startUrl;
+      while (url) {
+        const response = await fetch(url, {
+          headers: { Accept: "application/vnd.github+json" }
+        });
+        if (!response.ok) {
+          throw new Error(`${response.status} ${response.statusText}`);
+        }
+        const data = await response.json();
+        if (Array.isArray(data)) {
+          items.push(...data);
+        }
+        url = getNextLink(response.headers.get("Link"));
+      }
+      return items;
+    }
+
     async function refresh() {
       elements.refresh.disabled = true;
+      elements.status.className = "timestamp";
       elements.status.textContent = "Checking GitHub…";
       try {
-        const [issues, pulls, runs, commits] = await Promise.all([
-          getJson(`${apiBase}/issues?state=open&per_page=100`),
+        const [issues, comments, pulls, runs, commits] = await Promise.all([
+          getAllPages(`${apiBase}/issues?state=open&per_page=100`),
+          getAllPages(`${apiBase}/issues/comments?per_page=100`),
           getJson(`${apiBase}/pulls?state=open&per_page=100`),
           getJson(`${apiBase}/actions/runs?per_page=10`),
           getJson(`${apiBase}/commits?per_page=1`)
@@ -467,8 +620,8 @@
         elements.latestCommit.textContent = commits[0]
           ? commits[0].sha.slice(0, 7)
           : "—";
-        renderIssues(actualIssues);
-        renderCompletion(actualIssues);
+        renderIssues(actualIssues, comments);
+        renderCompletion(actualIssues, comments);
         renderRuns(runs.workflow_runs);
         elements.status.textContent = `Last checked: ${new Date().toLocaleString()}`;
       } catch (error) {

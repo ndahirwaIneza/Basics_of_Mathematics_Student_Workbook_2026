@@ -197,4 +197,4 @@ We examine a common error where a student concluded that $f'(x) = 3(x - 1)(x + 1
 
 **Show on screen:** The student's incorrect claim side-by-side with the correct upward-opening parabola and the three test point evaluations.
 
-**If asked to go deeper:** A quick sanity check using end behavior shows that since $f(x) = x^3 - 3x$ tends to $+\infty$ as $x \to \infty$, the function must ultimately be increasing on $(1, \infty)$, immediately refuting the student's assertion.
+**If asked to go deeper:** A quick sanity check using end behavior shows that since $f(x) = x^3 - 3x$ tends to $+\infty$ as $x \to \infty$, decreasing throughout the entire tail $(1, \infty)$ would be incompatible with an infinite limit, refuting the student's assertion while the derivative sign $f'(x) = 3(x - 1)(x + 1) > 0$ proves the actual increase on $[1, \infty)$.

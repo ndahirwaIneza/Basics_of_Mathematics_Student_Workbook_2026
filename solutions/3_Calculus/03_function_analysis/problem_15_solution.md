@@ -148,7 +148,7 @@ $f(-2) = (-2)^3 - 3(-2) = -8 + 6 = -2 < f(-1) = 2$ (confirms increasing on $(-\i
 $f(0) = 0$, which satisfies $f(1) = -2 < f(0) = 0 < f(-1) = 2$ (confirms decreasing on $[-1, 1]$);
 $f(2) = 2^3 - 3(2) = 8 - 6 = 2 > f(1) = -2$ (confirms increasing on $[1, \infty)$).
 
-**Pass 3 — Consistency check:** Since $f(x) = x^3 - 3x$ has leading coefficient $+1 > 0$, as $x \to \infty$, $f(x) \to +\infty$. A function going to $+\infty$ as $x \to \infty$ must be eventually increasing, directly contradicting the student's claim that $f$ decreases on $(1, \infty)$.
+**Pass 3 — Consistency check:** Since $f(x) = x^3 - 3x$ has leading coefficient $+1 > 0$, $\lim_{x \to \infty} f(x) = +\infty$. Decreasing throughout the entire tail $(1, \infty)$ would force $f(x) \le f(1) = -2$ for all $x > 1$, which is incompatible with a limit of $+\infty$ (refuting the student's claim on $(1, \infty)$). Note that $\lim_{x \to \infty} f(x) = +\infty$ does not force eventual monotonicity for functions in general; for this cubic, strict increase on $[1, \infty)$ is proved by the derivative sign $f'(x) = 3(x - 1)(x + 1) > 0$ for all $x > 1$.
 
 ---
 

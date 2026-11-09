@@ -76,7 +76,7 @@ We compare this integral with Problem 4 to understand the structural pattern of 
 **Key idea:** Recognizing the structure of the derivative over the function and explaining why logarithms appear.
 
 **What to say:**
-When inspecting the rational function $2x / (x^2+5)$, we see that the denominator is $x^2 + 5$. Differentiating the denominator gives $2x$, which matches the numerator. Setting $u = x^2 + 5$ and $du = 2x\,dx$, the integral becomes $\int \frac{1}{u}\,du$. This evaluates to $\ln|u| + C$, which gives $\ln(x^2+5) + C$, dropping the absolute value since $x^2 + 5 > 0$. The logarithm appears because the power rule for integration fails at exponent $-1$, where division by zero would occur. The natural logarithm is the unique antiderivative of $u^{-1}$ on $(0, \infty)$, making any integrand of the form $g'(x)/g(x)$ inherently logarithmic.
+When inspecting the rational function $2x / (x^2+5)$, we see that the denominator is $x^2 + 5$. Differentiating the denominator gives $2x$, which matches the numerator. Setting $u = x^2 + 5$ and $du = 2x\,dx$, the integral becomes $\int \frac{1}{u}\,du$. This evaluates to $\ln|u| + C$, which gives $\ln(x^2+5) + C$, dropping the absolute value since $x^2 + 5 > 0$. The logarithm appears because the power rule for integration fails at exponent $-1$, where division by zero would occur. An antiderivative of $u^{-1}$ is $\ln|u|$, and the full family of antiderivatives is $\ln|u| + C$ on each interval avoiding $0$, making any integrand of the form $g'(x)/g(x)$ inherently logarithmic.
 
 **Show on screen:** The substitution $u = x^2+5$, the transformation to $\int \frac{1}{u}\,du$, and the final expression $\ln(x^2+5) + C$.
 
