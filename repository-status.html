@@ -88,10 +88,6 @@
       font-weight: 700;
     }
 
-    .good { color: var(--good); }
-    .warn { color: var(--warn); }
-    .bad { color: var(--bad); }
-
     .section {
       margin-top: 1.5rem;
     }
@@ -132,6 +128,10 @@
       line-height: 1.45;
       margin-bottom: .35rem;
     }
+
+    .good { color: var(--good); }
+    .warn { color: var(--warn); }
+    .bad { color: var(--bad); }
 
     table {
       border-collapse: collapse;
@@ -358,7 +358,7 @@
 
       const sectionReviews = new Map();
       for (const issue of issues) {
-        const titleMatch = issue.title.match(/^Review\s+[—–-]\s+(.+)$/);
+        const titleMatch = (issue.title || "").match(/^Review\s+[—–-]\s+(.+)$/);
         if (!titleMatch) {
           continue;
         }
@@ -520,18 +520,18 @@
           }
           card.append(list);
         } else if (entries.length) {
-          const body = document.createElement("p");
-          body.className = "issue-body good";
-          body.textContent = "All reviewed exercises in this issue are currently accepted (follow-up comments applied).";
-          card.append(body);
+          const acceptedBody = document.createElement("p");
+          acceptedBody.className = "issue-body good";
+          acceptedBody.textContent = "All reviewed exercises in this issue are currently accepted (follow-up comments applied).";
+          card.append(acceptedBody);
         } else {
-          const cleanBody = (issue.body || "").replace(/<!--[\s\S]*?-->/g, "").replace(/\s+/g, " ").trim();
-          const body = document.createElement("p");
-          body.className = "issue-body";
-          body.textContent = cleanBody
+          const cleanBody = (issue.body || "").replace(/\x3C!--[\s\S]*?--\x3E/g, "").replace(/\s+/g, " ").trim();
+          const description = document.createElement("p");
+          description.className = "issue-body";
+          description.textContent = cleanBody
             ? cleanBody.slice(0, 360) + (cleanBody.length > 360 ? "…" : "")
             : "No description.";
-          card.append(body);
+          card.append(description);
         }
 
         elements.issues.append(card);
@@ -615,14 +615,14 @@
         elements.issueCount.className = `metric ${actualIssues.length ? "warn" : "good"}`;
         elements.prCount.textContent = pulls.length;
         elements.prCount.className = `metric ${pulls.length ? "warn" : "good"}`;
-        elements.runCount.textContent = runs.total_count;
+        elements.runCount.textContent = runs.total_count ?? 0;
         elements.runCount.className = "metric";
         elements.latestCommit.textContent = commits[0]
           ? commits[0].sha.slice(0, 7)
           : "—";
         renderIssues(actualIssues, comments);
         renderCompletion(actualIssues, comments);
-        renderRuns(runs.workflow_runs);
+        renderRuns(runs.workflow_runs || []);
         elements.status.textContent = `Last checked: ${new Date().toLocaleString()}`;
       } catch (error) {
         elements.status.textContent = `GitHub check failed: ${error.message}`;

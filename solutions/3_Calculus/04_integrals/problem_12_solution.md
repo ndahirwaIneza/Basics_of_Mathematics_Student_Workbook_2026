@@ -1,4 +1,4 @@
-﻿# Exercise 12
+# Exercise 12
 
 **Problem:** Compare
 
