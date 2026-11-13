@@ -29,7 +29,7 @@ However, a student wrote the following conclusion:
    - If the leading coefficient satisfies $a > 0$, the parabola opens upward: $q(x) < 0$ between the roots ($x \in (x_1, x_2)$) and $q(x) > 0$ outside the roots ($x \in (-\infty, x_1) \cup (x_2, \infty)$).
    - If $a < 0$, the signs are inverted.
 2. First derivative test for extrema: A critical point $c$ where $f'$ transitions from positive to negative is a local maximum; where $f'$ transitions from negative to positive is a local minimum.
-3. Interval definition of monotonicity: Monotonicity is defined on connected intervals, not on arbitrary disjoint unions of sets.
+3. Monotonicity on subsets vs. derivative sign: Monotonicity can be defined on any ordered subset $S \subseteq D$ by comparing all pairs $x_1 < x_2$ in $S$. However, having $f'(x) > 0$ (or $f'(x) < 0$) on separate intervals does not establish monotonicity across their union; each connected interval must be checked or stated separately.
 
 ---
 
@@ -48,7 +48,7 @@ $$
      - Regions of growth were labeled as decreasing, and the region of decrease was labeled as increasing.
      - The sign change at $x = -1$ was thought to be negative-to-positive (claiming a minimum), whereas the true change is positive-to-negative (a maximum).
      - The sign change at $x = 1$ was thought to be positive-to-negative (claiming a maximum), whereas the true change is negative-to-positive (a minimum).
-   - Set union error: Stating that $f$ is decreasing on $(-\infty, -1) \cup (1, \infty)$ is mathematically improper. Monotonicity must be stated separately for each interval.
+   - Set union error: Stating that $f$ is decreasing (or increasing) on $(-\infty, -1) \cup (1, \infty)$ conflates derivative signs on separate intervals with monotonicity on their union. While monotonicity can be defined on any ordered subset by comparing all pairs of points, derivative signs on separate intervals do not establish monotonicity across their union—for example, $f(-1.1) = 1.969 > f(1.1) = -1.969$, so $f$ is not increasing on $(-\infty, -1) \cup (1, \infty)$ even though $f'(x) > 0$ on both intervals. Keeping the two intervals separate is therefore appropriate.
 
 2. Correct sign chart for $f'(x)$:
    The factor $3$ is always positive. Analyzing the signs of $(x - 1)$ and $(x + 1)$:

@@ -155,14 +155,13 @@ $$
                                          |       .'             '.  I3 (sqrt(3), sqrt(3)/4)
                                          |     .'                 *---.___  (stays > 0)
                                          |   .'
-       - - - - - - - - - - - - - - - - - *-----------------------------------> x  (y = 0)
-         (stays < 0)                   .'|  (0, 0) [Infl / Only Zero]
-          ___..---*                  .'  |
-               I1  '.              .'    |
-                     '-.        .-'      |
-                        '--*--'          |
-                       (-1, -1/2)        |
-                      [Global Min]       |
+       ----------------------------------*-----------------------------------> x  (y = 0)
+       (stays < 0) ''---._             .'|  (0, 0) [Infl / Only Zero]
+                          *          .'  |
+                       I1  '-.    .-'    |
+                              '--*       |
+                             (-1, -1/2)  |
+                            [Global Min] |
    ```
    Qualitative features:
    - Starts near $y = 0$ as $x \to -\infty$, decreases through inflection point $I_1 = (-\sqrt{3}, -\sqrt{3}/4)$.
