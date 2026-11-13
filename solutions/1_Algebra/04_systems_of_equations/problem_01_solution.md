@@ -68,7 +68,7 @@ $$
 
 ---
 
-## Verification
+<!-- ## Verification
 
 **Pass 1 — Algebraic check:** Compute the matrix-vector product $A\mathbf{x}$:
 $$
@@ -85,5 +85,5 @@ $A \begin{pmatrix} 1 \\ 1 \\ 3 \end{pmatrix} = \begin{pmatrix} 2(1)-1+3 \\ 1+3(1
 
 ## Exam tip
 
-Ensure variables are aligned in identical order ($x, y, z$) in every equation before writing down the coefficient matrix to avoid placing coefficients into the wrong columns.
+Ensure variables are aligned in identical order ($x, y, z$) in every equation before writing down the coefficient matrix to avoid placing coefficients into the wrong columns. -->
 

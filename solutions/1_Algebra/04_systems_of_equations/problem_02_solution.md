@@ -106,7 +106,7 @@ $$
 
 ---
 
-## Verification
+<!-- ## Verification
 
 **Pass 1 — Algebraic check:** Solve via Cramer's rule. Expanding along the first row gives
 $$
@@ -125,4 +125,4 @@ $\det(A_z) = \begin{vmatrix} 1 & 1 & 6 \\ 2 & -1 & 3 \\ 1 & 2 & 2 \end{vmatrix} 
 
 ## Exam tip
 
-Swapping rows to obtain a pivot of $+1$ (as done in $R_2 \leftrightarrow R_3$) eliminates fractions and minimizes arithmetic errors during elimination.
+Swapping rows to obtain a pivot of $+1$ (as done in $R_2 \leftrightarrow R_3$) eliminates fractions and minimizes arithmetic errors during elimination. -->
